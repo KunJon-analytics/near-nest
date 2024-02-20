@@ -1,0 +1,270 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+/// A `Near Nest` user
+model User {
+  /// `uuid`: the unique user id returned by Pi platform API
+  uuid        String @id
+  /// `accessToken`: the access token returned by Pi platform API after authentication
+  accessToken String
+  /// `username`: the pi network username of the user
+  username    String @unique
+  /// `points`: user's points accrued for active ecosystem participation 
+  points      Float  @default(0)
+
+  /// `referrer`: id of user's referrer
+  referrer     String?
+  /// `referralCode`: unique referral code of user
+  referralCode String  @unique @default(uuid())
+
+  /// `reservations` reservations made by user
+  reservations     Reservation[]
+  /// `notifications` notifications for the user
+  notifications    Notification[]
+  /// user host profile?
+  host             Host?
+  receivedMessages Message[]      @relation("receivedMessages")
+  sentMessages     Message[]      @relation("sentMessages")
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([referrer])
+}
+
+/// A `Near Nest` host
+model Host {
+  /// `id`: the user uuid of the host
+  userId String @id
+  /// `user`: the user model of the host
+  user   User   @relation(fields: [userId], references: [uuid])
+
+  name          String
+  email         String?
+  phoneNumber   String?
+  profilePicUrl String?
+  aboutMe       String
+
+  /// `properties` properties hosted by host
+  properties Property[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+/// A `Near Nest` reservation
+model Reservation {
+  /// `id`: the id of the reservation
+  id String @id @default(uuid())
+
+  /// `user`: the user making the reservation
+  user   User   @relation(fields: [userId], references: [uuid])
+  /// `userId`: the uuid of the reserving user
+  userId String
+
+  /// `property`: the property reserved
+  property   Property @relation(fields: [propertyId], references: [id])
+  /// `propertyId`: the id of the reserved property
+  propertyId String
+
+  /// `startDate`: Date reservation starts
+  checkInDate  DateTime
+  /// `endDate`: Date reservation ends
+  checkOutDate DateTime
+
+  /// `totalPrice`: total amount of pi paid for reservation
+  totalPrice Float
+  /// `status` the reservation status
+  status     ReservationStatus @default(PENDING)
+
+  review        Review?
+  messages      Message[]
+  notifications Notification[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([userId])
+  @@index([propertyId])
+}
+
+model PropertyMedia {
+  id   String @id @default(uuid())
+  name String
+  url  String
+  type String
+
+  propertyId String
+  property   Property @relation(fields: [propertyId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([propertyId])
+}
+
+/// A `Near Nest` property
+model Property {
+  /// `id`: the id of the property
+  id          String @id @default(uuid())
+  /// `title`: the title of the property
+  title       String
+  /// `description`: the description of the property
+  description String
+  /// `address`: the address of the property
+  address     String
+  /// `latitude`: the latitude of the property
+  latitude    Float
+  /// `longitude`: the longitude of the property
+  longitude   Float
+  /// `rating`: the rating of the property
+  rating      Float  @default(0)
+  /// `price`: the price per night of the property
+  price       Float
+
+  type PropertyType @default(APARTMENT)
+
+  hasTv       Boolean @default(false)
+  hasKitchen  Boolean @default(false)
+  hasAirCon   Boolean @default(false)
+  hasHeating  Boolean @default(false)
+  hasInternet Boolean @default(false)
+  hasPool     Boolean @default(false)
+
+  /// Maximum Number of Guests
+  maxOccupancy  Int @default(1)
+  /// Number of Bedrooms
+  totalBedroom  Int @default(1)
+  /// Number of Bathrooms
+  totalBathroom Int @default(1)
+
+  /// the uuid of the host
+  hostId String
+  /// the property host
+  host   Host   @relation(fields: [hostId], references: [userId])
+
+  /// the property status
+  status PropertyStatus @default(PENDING)
+
+  reservations Reservation[]
+  media        PropertyMedia[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([hostId])
+}
+
+/// A Near Nest payment
+model Payment {
+  amount     Float
+  txId       String?
+  paymentId  String              @unique
+  isRefunded Boolean             @default(false)
+  type       PiTransactionType   @default(RESERVE)
+  status     PiTransactionStatus @default(INITIALIZED)
+  purposeId  String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+/// A Near Nest property review
+model Review {
+  id      String  @id
+  rating  Float
+  message String?
+
+  reservationId String      @unique
+  reservation   Reservation @relation(fields: [reservationId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([reservationId])
+}
+
+/// A Near Nest reservation message
+model Message {
+  id      String @id
+  message String
+
+  senderId      String
+  sender        User        @relation(name: "sentMessages", fields: [senderId], references: [uuid])
+  receiverId    String
+  receiver      User        @relation(name: "receivedMessages", fields: [receiverId], references: [uuid])
+  reservationId String
+  reservation   Reservation @relation(fields: [reservationId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([senderId])
+  @@index([receiverId])
+  @@index([reservationId])
+}
+
+/// A Near Nest notification
+model Notification {
+  id     String             @id
+  status NotificationStatus @default(RESERVATION_CREATED)
+
+  userId String
+  user   User   @relation(fields: [userId], references: [uuid])
+
+  reservationId String
+  reservation   Reservation @relation(fields: [reservationId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([userId])
+  @@index([reservationId])
+}
+
+enum ReservationStatus {
+  PENDING
+  CONFIRMED
+  CANCELLED
+}
+
+enum NotificationStatus {
+  RESERVATION_EXPIRED
+  RESERVATION_PAID
+  RESERVATION_CREATED
+  RESERVATION_NEW_MESSAGE
+  RESERVATION_COMPLETED
+}
+
+enum PropertyType {
+  APARTMENT
+  HOUSE
+  VILLA
+}
+
+enum PropertyStatus {
+  PENDING
+  AVAILABLE
+  CLOSED
+}
+
+enum PiTransactionType {
+  RESERVE
+  REFUND
+  CLAIM
+}
+
+enum PiTransactionStatus {
+  INITIALIZED
+  COMPLETED
+  CANCELLED
+}

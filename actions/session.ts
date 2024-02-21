@@ -4,6 +4,7 @@ import { getIronSession } from "iron-session";
 import { cookies } from "next/headers";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
+import crypto from 'crypto'
 
 import { SessionData, sessionOptions } from "@/lib/session";
 import { AuthResult } from "@/types";
@@ -50,10 +51,11 @@ export async function login(auth: AuthResult) {
       uuid: auth.user.uid,
       username: auth.user.username,
       accessToken: auth.accessToken,
-      tokens: 10,
+      referralCode: crypto.randomUUID(),
     },
   });
-  session.tokens = user.tokens;
+  session.points = user.points;
+  session.referralCode = user.referralCode;
   await session.save();
   revalidatePath("/", "layout");
 }

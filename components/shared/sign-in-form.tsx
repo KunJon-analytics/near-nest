@@ -30,14 +30,15 @@ export default function SignInForm({ className }: SignInFormProps) {
           // toast message
           toast({
             title: "Success",
-            description: "Start playing Word Rush.",
+            description:
+              "Wallet login successful! Let's find your perfect rental!",
           });
         } catch (error) {
           console.log(error);
           // toast error
           toast({
             title: "Uh oh! Something went wrong.",
-            description: "There was a problem with your request.",
+            description: "Wallet login failed. Please try again.",
             variant: "destructive",
           });
         }

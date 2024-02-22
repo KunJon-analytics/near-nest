@@ -1,4 +1,4 @@
-import type { Icon } from "lucide-react";
+import type { LucideIcon } from "lucide-react";
 import { IronSession } from "iron-session";
 
 import { SessionData } from "@/lib/session";
@@ -77,22 +77,6 @@ export type NavItem = {
 
 export type MainNavItem = NavItem;
 
-export type SidebarNavItem = {
-  title: string;
-  disabled?: boolean;
-  external?: boolean;
-  icon?: keyof typeof Icons;
-} & (
-  | {
-      href: string;
-      items?: never;
-    }
-  | {
-      href?: string;
-      items: NavLink[];
-    }
-);
-
 export type SiteConfig = {
   name: string;
   description: string;
@@ -108,3 +92,18 @@ export type SiteConfig = {
 export type DefaultConfig = {
   mainNav: MainNavItem[];
 };
+
+export type PropertyFilterType = {
+  label: PropertyFilterLabel;
+  name: string;
+  icon: LucideIcon;
+  description: string;
+};
+
+export type PropertyFilterLabel =
+  | "hasTv"
+  | "hasKitchen"
+  | "hasAirCon"
+  | "hasHeating"
+  | "hasInternet"
+  | "hasPool";

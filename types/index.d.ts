@@ -2,6 +2,7 @@ import type { LucideIcon } from "lucide-react";
 import { IronSession } from "iron-session";
 
 import { SessionData } from "@/lib/session";
+import { Prisma } from "@prisma/client";
 
 declare global {
   interface Window {
@@ -107,3 +108,19 @@ export type PropertyFilterLabel =
   | "hasHeating"
   | "hasInternet"
   | "hasPool";
+
+export type PropertiesParams = Record<PropertyFilterLabel, boolean | undefined>;
+
+export type MeReturnType = Prisma.UserGetPayload<{
+  include: {
+    host: true;
+    notifications: true;
+    receivedMessages: true;
+    reservations: true;
+    sentMessages: true;
+  };
+}>;
+
+export type PropertyReturnType = Prisma.PropertyGetPayload<{
+  include: { host: true; media: true; reservations: true };
+}>;

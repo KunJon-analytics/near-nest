@@ -44,7 +44,7 @@ export default function SignInForm({ className }: SignInFormProps) {
         }
       }}
     >
-      <div className="flex flex-col space-y-4 bg-secondary/50 px-4 py-8 md:px-16">
+      <div className="flex flex-col space-y-4 px-4 py-8 md:px-16">
         <FormButton />
       </div>
     </form>

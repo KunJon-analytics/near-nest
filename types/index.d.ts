@@ -12,6 +12,8 @@ declare global {
 
 export type MyPaymentMetadata = {};
 
+export type KnownError = { message: string };
+
 export type AuthResult = {
   accessToken: string;
   user: {

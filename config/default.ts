@@ -18,3 +18,7 @@ export const defaultConfig: DefaultConfig = {
     // },
   ],
 };
+
+export const minReservationRate = 0.1;
+
+export const defaultLoginRedirect = "/dashboard/host";

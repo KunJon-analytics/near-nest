@@ -4,15 +4,27 @@ import { getIronSession } from "iron-session";
 import { cookies } from "next/headers";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
-import crypto from 'crypto'
+import crypto from "crypto";
 
-import { SessionData, sessionOptions } from "@/lib/session";
-import { AuthResult } from "@/types";
+import { sessionOptions } from "@/lib/session";
+import { LoginParam } from "@/types";
 import platformAPIClient from "@/lib/platformAPIClient";
 import prisma from "@/lib/prisma";
+import { SessionData, defaultSession } from "@/lib/utils";
 
 export async function getSession() {
   const session = await getIronSession<SessionData>(cookies(), sessionOptions);
+
+  if (!session.isLoggedIn) {
+    session.isLoggedIn = defaultSession.isLoggedIn;
+    session.username = defaultSession.username;
+    session.accessToken = defaultSession.accessToken;
+    session.latitude = defaultSession.latitude;
+    session.longitude = defaultSession.longitude;
+    session.points = defaultSession.points;
+    session.referralCode = session.referralCode;
+    session.uuid = defaultSession.uuid;
+  }
 
   return session;
 }
@@ -25,7 +37,7 @@ export async function logout() {
   redirect(`/`);
 }
 
-export async function login(auth: AuthResult) {
+export async function login(auth: LoginParam) {
   const session = await getSession();
   try {
     // Verify the user's access token with the /me endpoint:
@@ -42,6 +54,8 @@ export async function login(auth: AuthResult) {
   session.isLoggedIn = true;
   session.accessToken = auth.accessToken;
   session.uuid = auth.user.uid;
+  session.latitude = auth.latitude || undefined;
+  session.longitude = auth.longitude || undefined;
   const user = await prisma.user.upsert({
     where: { uuid: auth.user.uid },
     update: {

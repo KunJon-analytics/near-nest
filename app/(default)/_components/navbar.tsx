@@ -1,6 +1,6 @@
 import { MainNavItem } from "@/types";
-import { SignInModal } from "@/components/shared/sign-in-modal";
 import { getSession } from "@/actions/session";
+import LoginNavButton from "@/components/shared/dashboard/login-nav-button";
 
 import { MainNav } from "./main-nav";
 import { UserAccountNav } from "./user-account-nav";
@@ -31,7 +31,7 @@ export async function NavBar({
           {session.isLoggedIn ? (
             <UserAccountNav session={session} />
           ) : (
-            <SignInModal />
+            <LoginNavButton />
           )}
         </div>
       </div>

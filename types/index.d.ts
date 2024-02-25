@@ -22,6 +22,11 @@ export type AuthResult = {
   };
 };
 
+export type LoginParam = AuthResult & {
+  longitude: string | null;
+  latitude: string | null;
+};
+
 export type User = AuthResult["user"];
 
 export interface PiCallbacks<T> {

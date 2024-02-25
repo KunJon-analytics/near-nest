@@ -4,24 +4,6 @@ import { env } from "@/env.mjs";
 
 export const authCookieName = "near-nest-session";
 
-export interface SessionData {
-  username: string;
-  isLoggedIn: boolean;
-  uuid: string;
-  accessToken: string;
-  points: number;
-  referralCode: string;
-}
-
-export const defaultSession: SessionData = {
-  username: "",
-  isLoggedIn: false,
-  uuid: "",
-  accessToken: "",
-  points: 0,
-  referralCode: "",
-};
-
 export const sessionOptions: SessionOptions = {
   password: env.COOKIE_PASSWORD,
   cookieName: authCookieName,

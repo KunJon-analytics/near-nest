@@ -2,12 +2,8 @@ import React from "react";
 
 import Sidebar from "@/components/shared/dashboard/sidebar";
 import Navbar from "@/components/shared/dashboard/navbar";
-import Signin from "@/components/shared/dashboard/signin";
-import { getSession } from "@/actions/session";
 
 const DashboardLayout = async ({ children }: { children: React.ReactNode }) => {
-  const session = await getSession();
-
   return (
     // <!-- Page Wrapper -->
     <>
@@ -18,9 +14,7 @@ const DashboardLayout = async ({ children }: { children: React.ReactNode }) => {
         <div className="hidden md:flex h-full w-20 flex-col fixed inset-y-0 z-50">
           <Sidebar />
         </div>
-        <main className="md:pl-20 pt-[64px] h-full">
-          {session.isLoggedIn ? children : <Signin />}
-        </main>
+        <main className="md:pl-20 pt-[64px] h-full">{children}</main>
       </div>
     </>
   );

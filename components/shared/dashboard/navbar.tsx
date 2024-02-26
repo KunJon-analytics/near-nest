@@ -1,6 +1,7 @@
 import React from "react";
 
 import { getSession } from "@/actions/session";
+import { LoginPageSearchParams } from "@/types";
 
 import { MobileSidebar } from "./mobile-sidebar";
 import { Notifications } from "./notifications";

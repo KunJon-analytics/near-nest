@@ -4,7 +4,7 @@ import * as React from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 
 import { cn } from "@/lib/utils";
-import { AuthResult } from "@/types";
+import { AuthResult, LoginPageSearchParams } from "@/types";
 import { onIncompletePaymentFound } from "@/lib/pi";
 import { defaultLoginRedirect } from "@/config/default";
 
@@ -18,11 +18,11 @@ type SignInFormProps = {} & React.ComponentProps<"form">;
 
 export default function SignInForm({ className }: SignInFormProps) {
   const { toast } = useToast();
-  const searchParams = useSearchParams();
   const router = useRouter();
-  const redirect = searchParams.get("redirect");
+  const searchParams = useSearchParams();
   const latitude = searchParams.get("latitude");
   const longitude = searchParams.get("longitude");
+  const redirect = searchParams.get("redirect");
 
   return (
     <form
@@ -33,7 +33,11 @@ export default function SignInForm({ className }: SignInFormProps) {
             scopes,
             onIncompletePaymentFound
           );
-          await login({ ...authResult, latitude, longitude });
+          await login({
+            ...authResult,
+            latitude,
+            longitude,
+          });
 
           // toast message
           toast({

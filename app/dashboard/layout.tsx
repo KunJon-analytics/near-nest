@@ -3,7 +3,11 @@ import React from "react";
 import Sidebar from "@/components/shared/dashboard/sidebar";
 import Navbar from "@/components/shared/dashboard/navbar";
 
-const DashboardLayout = async ({ children }: { children: React.ReactNode }) => {
+interface DashboardLayoutProps {
+  children: React.ReactNode;
+}
+
+const DashboardLayout = async ({ children }: DashboardLayoutProps) => {
   return (
     // <!-- Page Wrapper -->
     <>

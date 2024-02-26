@@ -27,6 +27,12 @@ export type LoginParam = AuthResult & {
   latitude: string | null;
 };
 
+export type LoginPageSearchParams = {
+  latitude: string | undefined;
+  longitude: string | undefined;
+  redirect: string | undefined;
+};
+
 export type User = AuthResult["user"];
 
 export interface PiCallbacks<T> {

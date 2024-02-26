@@ -45,5 +45,3 @@ export type CreatePropertyParams = z.infer<typeof GeneralFormSchema> & {
   latitude: string | undefined;
   longitude: string | undefined;
 };
-
-export const defaultLocation = { latitude: 0, longitude: 0 };

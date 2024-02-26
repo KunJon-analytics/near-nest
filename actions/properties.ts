@@ -2,7 +2,8 @@
 
 import prisma from "@/lib/prisma";
 import { PropertiesParams } from "@/types";
-import { CreatePropertyParams, defaultLocation } from "@/lib/schemas/host";
+import { CreatePropertyParams } from "@/lib/schemas/host";
+import { defaultLocation } from "@/config/default";
 
 import { getSession } from "./session";
 

@@ -12,6 +12,13 @@ export async function middleware(request: NextRequest) {
   const longitude = searchParams.get("longitude");
   const latitude = searchParams.get("latitude");
 
+  if (url.pathname.startsWith("/dashboard/host")) {
+    const redirectTo = `${url.origin}/dashboard/be-a-host`;
+    if (!session.isHost) {
+      return NextResponse.redirect(redirectTo, 302);
+    }
+  }
+
   if (url.pathname === "/dashboard/login") {
     if (!latitude || !longitude) {
       url.searchParams.set(

@@ -24,6 +24,7 @@ export async function getSession() {
     session.points = defaultSession.points;
     session.referralCode = session.referralCode;
     session.uuid = defaultSession.uuid;
+    session.isHost = defaultSession.isHost;
   }
 
   return session;
@@ -58,6 +59,7 @@ export async function login(auth: LoginParam) {
   session.longitude = auth.longitude || undefined;
   const user = await prisma.user.upsert({
     where: { uuid: auth.user.uid },
+    include: { host: true },
     update: {
       accessToken: auth.accessToken,
     },
@@ -70,6 +72,7 @@ export async function login(auth: LoginParam) {
   });
   session.points = user.points;
   session.referralCode = user.referralCode;
+  session.isHost = !!user.host;
   await session.save();
   revalidatePath("/", "layout");
 }

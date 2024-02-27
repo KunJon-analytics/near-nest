@@ -31,13 +31,15 @@ const DashboardPage = async () => {
           link="/dashboard/host"
         />
 
-        <DashboardPageCard
-          buttonText="Get Started Hosting"
-          description="Ready to become a host? Start earning by listing your property with us!"
-          image="/images/illustrations/performance.svg"
-          title="Start Hosting"
-          link="/dashboard/be-a-host"
-        />
+        {!session.isHost && (
+          <DashboardPageCard
+            buttonText="Get Started Hosting"
+            description="Ready to become a host? Start earning by listing your property with us!"
+            image="/images/illustrations/performance.svg"
+            title="Start Hosting"
+            link="/dashboard/be-a-host"
+          />
+        )}
       </div>
     </main>
   );

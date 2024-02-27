@@ -13,6 +13,7 @@ export const stages = [
 export interface SessionData {
   username: string;
   isLoggedIn: boolean;
+  isHost: boolean;
   uuid: string;
   accessToken: string;
   points: number;
@@ -24,6 +25,7 @@ export interface SessionData {
 export const defaultSession: SessionData = {
   username: "",
   isLoggedIn: false,
+  isHost: false,
   uuid: "",
   accessToken: "",
   points: 0,

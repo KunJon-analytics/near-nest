@@ -1,9 +1,13 @@
 import Link from "next/link";
 import React from "react";
 
+import { getSession } from "@/actions/session";
+
 import BeAHostForm from "./_components/be-a-host-form";
 
-const BeAHostPage = () => {
+const BeAHostPage = async () => {
+  const session = await getSession();
+
   return (
     <main className="main-content w-full px-[var(--margin-x)] pb-8">
       <div className="flex items-center space-x-4 py-5 lg:py-6">
@@ -43,7 +47,7 @@ const BeAHostPage = () => {
 
       <div className="grid grid-cols-12 gap-4 sm:gap-5 lg:gap-6">
         <div className="col-span-12 lg:col-span-8">
-          <BeAHostForm />
+          {session.isHost ? "You are already a host" : <BeAHostForm />}
         </div>
       </div>
     </main>

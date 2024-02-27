@@ -28,11 +28,11 @@ export const createProperty = async (values: CreatePropertyParams) => {
     const propertyParam = {
       ...values,
       hostId: session.uuid,
-      latitude: values.latitude
-        ? Number(values.latitude)
+      latitude: session.latitude
+        ? Number(session.latitude)
         : defaultLocation.latitude,
-      longitude: values.longitude
-        ? Number(values.longitude)
+      longitude: session.longitude
+        ? Number(session.longitude)
         : defaultLocation.longitude,
     };
     const property = await prisma.property.create({
@@ -41,6 +41,7 @@ export const createProperty = async (values: CreatePropertyParams) => {
     // redirect to update property page or return success after try catch
     return { success: property.id };
   } catch (error) {
+    console.log(error);
     return {
       error: "Server Error",
     };

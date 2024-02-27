@@ -2,6 +2,10 @@ import * as z from "zod";
 
 import { minReservationRate } from "@/config/default";
 
+const phoneRegex = new RegExp(
+  /^([+]?[\s0-9]+)?(\d{3}|[(]?[0-9]+[)])?([-]?[\s]?[0-9])+$/
+);
+
 export const GeneralFormSchema = z.object({
   title: z
     .string()
@@ -14,18 +18,18 @@ export const GeneralFormSchema = z.object({
   description: z
     .string()
     .min(10, {
-      message: "Title must be at least 10 characters.",
+      message: "Description must be at least 10 characters.",
     })
     .max(200, {
-      message: "Title must not be longer than 200 characters.",
+      message: "Description must not be longer than 200 characters.",
     }),
   address: z
     .string()
     .min(10, {
-      message: "Title must be at least 10 characters.",
+      message: "Address must be at least 10 characters.",
     })
     .max(80, {
-      message: "Title must not be longer than 80 characters.",
+      message: "Address must not be longer than 80 characters.",
     }),
   price: z
     .number({ required_error: "Price is required" })
@@ -41,7 +45,29 @@ export const GeneralFormSchema = z.object({
     ),
 });
 
-export type CreatePropertyParams = z.infer<typeof GeneralFormSchema> & {
-  latitude: string | undefined;
-  longitude: string | undefined;
-};
+export const BeaHostSchema = z.object({
+  name: z
+    .string()
+    .min(2, {
+      message: "Name must be at least 2 characters.",
+    })
+    .max(40, {
+      message: "Name must not be longer than 40 characters.",
+    }),
+  aboutMe: z
+    .string()
+    .min(20, {
+      message: "Please tell us more...",
+    })
+    .max(140, {
+      message: "You have exceeded 140 characters.",
+    }),
+
+  email: z.string().email("Not a valid email").optional(),
+  phoneNumber: z.string().regex(phoneRegex, "Invalid Number!").optional(),
+  profilePicUrl: z.string().optional(),
+});
+
+export type CreatePropertyParams = z.infer<typeof GeneralFormSchema>;
+
+export type BeaHostParams = z.infer<typeof BeaHostSchema>;

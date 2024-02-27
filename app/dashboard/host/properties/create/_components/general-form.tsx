@@ -5,7 +5,7 @@ import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { ArrowLeft, ArrowRight, Loader2 } from "lucide-react";
 import { useForm } from "react-hook-form";
-import { usePathname, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 
 import {
   Form,
@@ -17,34 +17,29 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { GeneralFormSchema } from "@/lib/schemas/host";
+import { CreatePropertyParams, GeneralFormSchema } from "@/lib/schemas/host";
 import { useToast } from "@/components/ui/use-toast";
 import { Button } from "@/components/ui/button";
 import { createProperty } from "@/actions/properties";
-import { getSession } from "@/actions/session";
 
 const GeneralForm = () => {
   const form = useForm<z.infer<typeof GeneralFormSchema>>({
     resolver: zodResolver(GeneralFormSchema),
+    defaultValues: { address: "", description: "", price: 1.0, title: "" },
   });
   const { toast } = useToast();
   const router = useRouter();
-  const pathname = usePathname();
 
   const { isSubmitting, isValid } = form.formState;
 
-  const onSubmit = async (values: z.infer<typeof GeneralFormSchema>) => {
+  const onSubmit = async (values: CreatePropertyParams) => {
     try {
-      const { latitude, longitude } = await getSession();
-
-      const response = await createProperty({
-        ...values,
-        latitude,
-        longitude,
-      });
+      const response = await createProperty(values);
       if (response.success) {
         toast({ description: response.success });
-        router.push(`${pathname}?stage=type`);
+        router.push(
+          `/dashboard/host/properties/${response.success}/update?stage=type`
+        );
       }
       toast({
         description: response.error,
@@ -129,7 +124,7 @@ const GeneralForm = () => {
           control={form.control}
           name="price"
           render={({ field }) => (
-            <FormItem>
+            <FormItem className="mt-4">
               <FormControl>
                 <FormLabel className="block">
                   <span>Price Per Night</span>

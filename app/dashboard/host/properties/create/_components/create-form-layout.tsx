@@ -1,15 +1,9 @@
 import { Info } from "lucide-react";
 import React from "react";
 
-import { Stage } from "@/lib/utils";
-
 import GeneralForm from "./general-form";
 
-interface GeneralFormLayoutProps {
-  stage: Stage;
-}
-
-const CreateFormLayout = ({ stage }: GeneralFormLayoutProps) => {
+const CreateFormLayout = () => {
   return (
     <div className="card">
       <div className="border-b border-slate-200 p-4 dark:border-navy-500 sm:px-5">
@@ -22,7 +16,7 @@ const CreateFormLayout = ({ stage }: GeneralFormLayoutProps) => {
           </h4>
         </div>
       </div>
-      {stage === "general" && <GeneralForm />}
+      <GeneralForm />
     </div>
   );
 };

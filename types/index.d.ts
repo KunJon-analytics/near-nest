@@ -124,7 +124,10 @@ export type PropertyFilterLabel =
 
 export type PropertiesParams = Record<PropertyFilterLabel, string | null>;
 
-export type PropertiesSearchQuery = Record<PropertyFilterLabel, boolean>;
+export type PropertiesSearchQuery = Record<
+  PropertyFilterLabel,
+  boolean | undefined
+>;
 
 export type MeReturnType = Prisma.UserGetPayload<{
   include: {

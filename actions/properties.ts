@@ -10,12 +10,12 @@ import { Prisma } from "@prisma/client";
 
 export const getProperties = async (searchParams: PropertiesParams) => {
   const data: PropertiesSearchQuery = {
-    hasAirCon: searchParams.hasAirCon === "true",
-    hasHeating: searchParams.hasHeating === "true",
-    hasInternet: searchParams.hasInternet === "true",
-    hasKitchen: searchParams.hasKitchen === "true",
-    hasPool: searchParams.hasPool === "true",
-    hasTv: searchParams.hasTv === "true",
+    hasAirCon: searchParams.hasAirCon === "true" ? true : undefined,
+    hasHeating: searchParams.hasHeating === "true" ? true : undefined,
+    hasInternet: searchParams.hasInternet === "true" ? true : undefined,
+    hasKitchen: searchParams.hasKitchen === "true" ? true : undefined,
+    hasPool: searchParams.hasPool === "true" ? true : undefined,
+    hasTv: searchParams.hasTv === "true" ? true : undefined,
   };
   try {
     const properties = await prisma.property.findMany({

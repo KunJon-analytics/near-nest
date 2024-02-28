@@ -6,6 +6,7 @@ import { CreatePropertyParams } from "@/lib/schemas/host";
 import { defaultLocation } from "@/config/default";
 
 import { getSession } from "./session";
+import { Prisma } from "@prisma/client";
 
 export const getProperties = async (searchParams: PropertiesParams) => {
   const data: PropertiesSearchQuery = {
@@ -56,9 +57,7 @@ export const createProperty = async (values: CreatePropertyParams) => {
   }
 };
 
-export const updateProperty = async (
-  values: CreatePropertyParams & { id: string }
-) => {
+export const updateProperty = async (values: Prisma.PropertyUpdateInput) => {
   try {
     const session = await getSession();
     if (!session.isLoggedIn) {
@@ -67,7 +66,7 @@ export const updateProperty = async (
 
     const property = await prisma.property.update({
       data: { ...values },
-      where: { id: values.id, hostId: session.uuid },
+      where: { id: values.id as string, hostId: session.uuid },
     });
     // redirect to update property page or return success after try catch
     return { success: property.id };

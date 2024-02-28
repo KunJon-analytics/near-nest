@@ -45,6 +45,50 @@ export const GeneralFormSchema = z.object({
     ),
 });
 
+export const TypeFormSchema = z.object({
+  type: z
+    .string()
+    .min(2, {
+      message: "Type must be at least 2 characters.",
+    })
+    .max(40, {
+      message: "Type must not be longer than 40 characters.",
+    }),
+  maxOccupancy: z
+    .number({ required_error: "Number of Adults is required" })
+    .positive({ message: "Number of Adults must be positive" })
+    .int({ message: "Number of Adults must be an integer" })
+    .or(z.string())
+    .pipe(
+      z.coerce
+        .number({ required_error: "Number of Adults is required" })
+        .positive({ message: "Number of Adults must be positive" })
+        .int({ message: "Number of Adults must be an integer" })
+    ),
+  totalBedroom: z
+    .number({ required_error: "Number of Bedrooms is required" })
+    .positive({ message: "Number of Bedrooms must be positive" })
+    .int({ message: "Number of Bedrooms must be an integer" })
+    .or(z.string())
+    .pipe(
+      z.coerce
+        .number({ required_error: "Number of Bedrooms is required" })
+        .positive({ message: "Number of Bedrooms must be positive" })
+        .int({ message: "Number of Bedrooms must be an integer" })
+    ),
+  totalBathroom: z
+    .number({ required_error: "Number of Bathrooms is required" })
+    .positive({ message: "Number of Bathrooms must be positive" })
+    .int({ message: "Number of Bathrooms must be an integer" })
+    .or(z.string())
+    .pipe(
+      z.coerce
+        .number({ required_error: "Number of Bathrooms is required" })
+        .positive({ message: "Number of Bathrooms must be positive" })
+        .int({ message: "Number of Bathrooms must be an integer" })
+    ),
+});
+
 export const BeaHostSchema = z.object({
   name: z
     .string()
@@ -69,5 +113,7 @@ export const BeaHostSchema = z.object({
 });
 
 export type CreatePropertyParams = z.infer<typeof GeneralFormSchema>;
+
+export type UpdatePropertyTypeParams = z.infer<typeof TypeFormSchema>;
 
 export type BeaHostParams = z.infer<typeof BeaHostSchema>;

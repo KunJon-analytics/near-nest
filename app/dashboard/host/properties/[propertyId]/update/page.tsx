@@ -57,7 +57,7 @@ const PropertyUpdatePage = async ({
       </div>
 
       <div className="grid grid-cols-12 gap-4 sm:gap-5 lg:gap-6">
-        <UpdateTabs stage={stage} />
+        <UpdateTabs stage={stage} propertyId={params.propertyId} />
         <div className="col-span-12 grid lg:col-span-8">
           <UpdateFormLayout propertyId={params.propertyId} stage={stage} />
         </div>

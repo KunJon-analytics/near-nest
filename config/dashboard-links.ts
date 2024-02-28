@@ -6,7 +6,14 @@ import {
   Route,
   BookUser,
   ArrowLeftRight,
+  Info,
+  Building,
+  Laugh,
+  Images,
+  Send,
 } from "lucide-react";
+
+import { Stage } from "@/lib/utils";
 
 export type DashboardLink = {
   href: string;
@@ -22,6 +29,20 @@ const dashboardLinks: DashboardLink[] = [
   { href: "/dashboard/steps", icon: Route, name: "Steps" },
   { href: "/dashboard/contact", icon: BookUser, name: "Contact" },
   { href: "/dashboard/help", icon: HelpCircle, name: "Help" },
+];
+
+export interface TabElement {
+  title: Stage;
+  icon: LucideIcon;
+  name: string;
+}
+
+export const tabElements: TabElement[] = [
+  { icon: Info, name: "General", title: "general" },
+  { icon: Building, name: "Property Type", title: "type" },
+  { icon: Laugh, name: "Facilities", title: "facilities" },
+  { icon: Images, name: "Media", title: "media" },
+  { icon: Send, name: "List", title: "list" },
 ];
 
 export default dashboardLinks;

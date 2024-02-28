@@ -1,27 +1,15 @@
 import React from "react";
-import { Info, LucideIcon, Building, Laugh, Images, Send } from "lucide-react";
+import Link from "next/link";
 
 import { Stage } from "@/lib/utils";
+import { tabElements } from "@/config/dashboard-links";
 
 interface UpdateTabsProps {
   stage: Stage;
+  propertyId?: string;
 }
 
-interface TabElement {
-  title: Stage;
-  icon: LucideIcon;
-  name: string;
-}
-
-const tabElements: TabElement[] = [
-  { icon: Info, name: "General", title: "general" },
-  { icon: Building, name: "Property Type", title: "type" },
-  { icon: Laugh, name: "Facilities", title: "facilities" },
-  { icon: Images, name: "Media", title: "media" },
-  { icon: Send, name: "List", title: "list" },
-];
-
-const UpdateTabs = ({ stage }: UpdateTabsProps) => {
+const UpdateTabs = ({ stage, propertyId }: UpdateTabsProps) => {
   return (
     <div className="col-span-12 grid lg:col-span-4 lg:place-items-center">
       <div>
@@ -56,7 +44,11 @@ const UpdateTabs = ({ stage }: UpdateTabsProps) => {
                         : "text-base font-medium"
                     }
                   >
-                    {name}
+                    <Link
+                      href={`/dashboard/host/properties/${propertyId}/update?stage=${title}`}
+                    >
+                      {name}
+                    </Link>
                   </h3>
                 </div>
               </li>

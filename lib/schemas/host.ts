@@ -45,6 +45,15 @@ export const GeneralFormSchema = z.object({
     ),
 });
 
+export const FacilitiesFormSchema = z.object({
+  hasTv: z.boolean(),
+  hasKitchen: z.boolean(),
+  hasAirCon: z.boolean(),
+  hasHeating: z.boolean(),
+  hasInternet: z.boolean(),
+  hasPool: z.boolean(),
+});
+
 export const TypeFormSchema = z.object({
   type: z
     .string()

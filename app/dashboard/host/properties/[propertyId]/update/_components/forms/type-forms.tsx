@@ -114,7 +114,7 @@ const TypeForm = ({ property }: TypeFormProps) => {
                   <Input
                     {...field}
                     disabled={isSubmitting}
-                    className="form-input mt-2.5 w-full rounded-lg bg-slate-150 px-3 py-2 ring-primary/50 placeholder:text-slate-400 hover:bg-slate-200 focus:ring dark:bg-navy-900/90 dark:ring-accent/50 dark:placeholder:text-navy-300 dark:hover:bg-navy-900 dark:focus:bg-navy-900"
+                    className="form-input mt-1.5 w-full rounded-lg bg-slate-150 px-3 py-2 ring-primary/50 placeholder:text-slate-400 hover:bg-slate-200 focus:ring dark:bg-navy-900/90 dark:ring-accent/50 dark:placeholder:text-navy-300 dark:hover:bg-navy-900 dark:focus:bg-navy-900"
                     value={field.value || ""} // avoid errors of uncontrolled vs controlled
                     pattern="[0-9]*" // to receive only numbers without showing does weird arrows in the input
                     onChange={
@@ -144,7 +144,7 @@ const TypeForm = ({ property }: TypeFormProps) => {
                   <Input
                     {...field}
                     disabled={isSubmitting}
-                    className="form-input mt-2.5 w-full rounded-lg bg-slate-150 px-3 py-2 ring-primary/50 placeholder:text-slate-400 hover:bg-slate-200 focus:ring dark:bg-navy-900/90 dark:ring-accent/50 dark:placeholder:text-navy-300 dark:hover:bg-navy-900 dark:focus:bg-navy-900"
+                    className="form-input mt-1.5 w-full rounded-lg bg-slate-150 px-3 py-2 ring-primary/50 placeholder:text-slate-400 hover:bg-slate-200 focus:ring dark:bg-navy-900/90 dark:ring-accent/50 dark:placeholder:text-navy-300 dark:hover:bg-navy-900 dark:focus:bg-navy-900"
                     value={field.value || ""} // avoid errors of uncontrolled vs controlled
                     pattern="[0-9]*" // to receive only numbers without showing does weird arrows in the input
                     onChange={
@@ -174,7 +174,7 @@ const TypeForm = ({ property }: TypeFormProps) => {
                   <Input
                     {...field}
                     disabled={isSubmitting}
-                    className="form-input mt-2.5 w-full rounded-lg bg-slate-150 px-3 py-2 ring-primary/50 placeholder:text-slate-400 hover:bg-slate-200 focus:ring dark:bg-navy-900/90 dark:ring-accent/50 dark:placeholder:text-navy-300 dark:hover:bg-navy-900 dark:focus:bg-navy-900"
+                    className="form-input mt-1.5 w-full rounded-lg bg-slate-150 px-3 py-2 ring-primary/50 placeholder:text-slate-400 hover:bg-slate-200 focus:ring dark:bg-navy-900/90 dark:ring-accent/50 dark:placeholder:text-navy-300 dark:hover:bg-navy-900 dark:focus:bg-navy-900"
                     value={field.value || ""} // avoid errors of uncontrolled vs controlled
                     pattern="[0-9]*" // to receive only numbers without showing does weird arrows in the input
                     onChange={

@@ -1,4 +1,3 @@
-import { Info } from "lucide-react";
 import React from "react";
 import { notFound } from "next/navigation";
 
@@ -9,6 +8,7 @@ import { tabElements } from "@/config/dashboard-links";
 
 import GeneralForm from "./forms/general-form";
 import TypeForm from "./forms/type-forms";
+import FacilitiesForm from "./forms/facilities-form";
 
 interface UpdateFormLayoutProps {
   propertyId: string;
@@ -48,6 +48,7 @@ const UpdateFormLayout = async ({
       </div>
       {stage === "general" && <GeneralForm property={property} />}
       {stage === "type" && <TypeForm property={property} />}
+      {stage === "facilities" && <FacilitiesForm property={property} />}
     </div>
   );
 };

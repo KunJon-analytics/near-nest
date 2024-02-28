@@ -85,7 +85,7 @@ const PropertyCard: React.FC<PropertyCardProps> = ({
               group-hover:scale-110 
               transition
             "
-            src={data.media[0].url}
+            src={data?.media[0]?.url || "/images/800x600.png"}
             alt="Listing"
           />
         </div>

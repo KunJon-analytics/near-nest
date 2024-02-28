@@ -36,15 +36,19 @@ const GeneralForm = () => {
     try {
       const response = await createProperty(values);
       if (response.success) {
-        toast({ description: response.success });
+        toast({
+          description: `Property with ID: ${response.success} added successfully`,
+        });
         router.push(
           `/dashboard/host/properties/${response.success}/update?stage=type`
         );
       }
-      toast({
-        description: response.error,
-        variant: "destructive",
-      });
+      if (response.error) {
+        toast({
+          description: response.error,
+          variant: "destructive",
+        });
+      }
     } catch (error) {
       console.log(error);
       toast({

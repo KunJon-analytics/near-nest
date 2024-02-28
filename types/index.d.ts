@@ -122,7 +122,7 @@ export type PropertyFilterLabel =
   | "hasInternet"
   | "hasPool";
 
-export type PropertiesParams = Record<PropertyFilterLabel, boolean | undefined>;
+export type PropertiesParams = Record<PropertyFilterLabel, string | null>;
 
 export type MeReturnType = Prisma.UserGetPayload<{
   include: {
@@ -136,4 +136,8 @@ export type MeReturnType = Prisma.UserGetPayload<{
 
 export type PropertyReturnType = Prisma.PropertyGetPayload<{
   include: { host: true; media: true; reservations: true };
+}>;
+
+export type ReservationReturnType = Prisma.ReservationGetPayload<{
+  include: { property: true };
 }>;

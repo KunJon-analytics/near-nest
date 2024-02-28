@@ -1,6 +1,8 @@
-import { env } from "@/env.mjs";
 import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
+
+import { env } from "@/env.mjs";
+import { $Enums } from "@prisma/client";
 
 export const stages = [
   "general",
@@ -54,4 +56,18 @@ export async function fetchSession() {
   });
   const session = (await response.json()) as SessionData;
   return session;
+}
+
+export function getReservationColor(status: $Enums.ReservationStatus): string {
+  switch (status) {
+    case "PENDING":
+      return "bg-info dark:bg-info";
+    case "CANCELLED":
+      return "bg-error dark:bg-error";
+    case "CONFIRMED":
+      return "bg-success dark:bg-success";
+
+    default:
+      return "bg-info dark:bg-info";
+  }
 }

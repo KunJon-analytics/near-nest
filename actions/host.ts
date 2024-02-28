@@ -1,5 +1,7 @@
 "use server";
 
+import { revalidatePath } from "next/cache";
+
 import prisma from "@/lib/prisma";
 import { BeaHostParams } from "@/lib/schemas/host";
 
@@ -16,6 +18,9 @@ export const beAHost = async (values: BeaHostParams) => {
       update: {},
       where: { userId: session.uuid },
     });
+    session.isHost = !!host.userId;
+    await session.save();
+    revalidatePath("/", "layout");
     return { success: host.userId };
   } catch (error) {
     console.log("beAHost Error", error);

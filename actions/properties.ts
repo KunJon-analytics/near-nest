@@ -4,9 +4,9 @@ import prisma from "@/lib/prisma";
 import { PropertiesParams, PropertiesSearchQuery } from "@/types";
 import { CreatePropertyParams } from "@/lib/schemas/host";
 import { defaultLocation } from "@/config/default";
+import { Prisma } from "@prisma/client";
 
 import { getSession } from "./session";
-import { Prisma } from "@prisma/client";
 
 export const getProperties = async (searchParams: PropertiesParams) => {
   const data: PropertiesSearchQuery = {

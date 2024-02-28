@@ -9,6 +9,7 @@ import { tabElements } from "@/config/dashboard-links";
 import GeneralForm from "./forms/general-form";
 import TypeForm from "./forms/type-forms";
 import FacilitiesForm from "./forms/facilities-form";
+import MediaForm from "./forms/media-form";
 
 interface UpdateFormLayoutProps {
   propertyId: string;
@@ -49,6 +50,7 @@ const UpdateFormLayout = async ({
       {stage === "general" && <GeneralForm property={property} />}
       {stage === "type" && <TypeForm property={property} />}
       {stage === "facilities" && <FacilitiesForm property={property} />}
+      {stage === "media" && <MediaForm property={property} />}
     </div>
   );
 };

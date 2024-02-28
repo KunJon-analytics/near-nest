@@ -10,7 +10,7 @@ import {
   Building,
   Laugh,
   Images,
-  Send,
+  Settings,
 } from "lucide-react";
 
 import { Stage } from "@/lib/utils";
@@ -42,7 +42,7 @@ export const tabElements: TabElement[] = [
   { icon: Building, name: "Property Type", title: "type" },
   { icon: Laugh, name: "Facilities", title: "facilities" },
   { icon: Images, name: "Media", title: "media" },
-  { icon: Send, name: "List", title: "list" },
+  { icon: Settings, name: "Property Status", title: "status" },
 ];
 
 export default dashboardLinks;

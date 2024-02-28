@@ -121,6 +121,10 @@ export const BeaHostSchema = z.object({
   profilePicUrl: z.string().optional(),
 });
 
+export const StatusFormSchema = z.object({
+  status: z.string(),
+});
+
 export type CreatePropertyParams = z.infer<typeof GeneralFormSchema>;
 
 export type UpdatePropertyTypeParams = z.infer<typeof TypeFormSchema>;

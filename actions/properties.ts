@@ -19,7 +19,7 @@ export const getProperties = async (searchParams: PropertiesParams) => {
   };
   try {
     const properties = await prisma.property.findMany({
-      where: { ...data },
+      where: { ...data, status: "AVAILABLE" },
       include: { host: true, media: true, reservations: true },
     });
     return properties;

@@ -1,7 +1,6 @@
 import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
 
-import { env } from "@/env.mjs";
 import { $Enums } from "@prisma/client";
 
 export const stages = [
@@ -9,7 +8,7 @@ export const stages = [
   "type",
   "facilities",
   "media",
-  "list",
+  "status",
 ] as const;
 
 export interface SessionData {
@@ -48,14 +47,6 @@ export function getStage(stage: string | undefined): Stage {
     return value;
   }
   return "general";
-}
-
-export async function fetchSession() {
-  const response = await fetch(`${env.NEXT_PUBLIC_APP_URL}/api/session`, {
-    next: { tags: ["session"] },
-  });
-  const session = (await response.json()) as SessionData;
-  return session;
 }
 
 export function getReservationColor(status: $Enums.ReservationStatus): string {

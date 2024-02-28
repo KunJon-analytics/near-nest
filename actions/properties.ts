@@ -8,6 +8,10 @@ import { Prisma } from "@prisma/client";
 
 import { getSession } from "./session";
 
+interface IParams {
+  propertyId?: string;
+}
+
 export const getProperties = async (searchParams: PropertiesParams) => {
   const data: PropertiesSearchQuery = {
     hasAirCon: searchParams.hasAirCon === "true" ? true : undefined,
@@ -77,3 +81,23 @@ export const updateProperty = async (values: Prisma.PropertyUpdateInput) => {
     };
   }
 };
+
+export async function getPropertyById(params: IParams) {
+  try {
+    const { propertyId } = params;
+
+    const property = await prisma.property.findUnique({
+      where: {
+        id: propertyId,
+      },
+      include: {
+        host: true,
+        media: true,
+      },
+    });
+
+    return property;
+  } catch (error: any) {
+    throw new Error(error);
+  }
+}

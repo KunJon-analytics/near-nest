@@ -62,3 +62,7 @@ export function getReservationColor(status: $Enums.ReservationStatus): string {
       return "bg-info dark:bg-info";
   }
 }
+
+export const getByValue = (latitude: number, longitude: number) => {
+  return { region: latitude, label: longitude };
+};

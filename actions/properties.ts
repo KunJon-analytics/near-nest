@@ -55,3 +55,26 @@ export const createProperty = async (values: CreatePropertyParams) => {
     };
   }
 };
+
+export const updateProperty = async (
+  values: CreatePropertyParams & { id: string }
+) => {
+  try {
+    const session = await getSession();
+    if (!session.isLoggedIn) {
+      return { error: "Unauthorized" };
+    }
+
+    const property = await prisma.property.update({
+      data: { ...values },
+      where: { id: values.id, hostId: session.uuid },
+    });
+    // redirect to update property page or return success after try catch
+    return { success: property.id };
+  } catch (error) {
+    console.log(error);
+    return {
+      error: "Server Error",
+    };
+  }
+};

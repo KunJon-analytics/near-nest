@@ -1,22 +1,23 @@
 import React from "react";
 
 import { getSession } from "@/actions/session";
+import prisma from "@/lib/prisma";
 
 import { HostDropdown } from "./_components/host-dropdown";
 import HostStats from "./_components/host-stats";
 import { HostReservationsTable } from "./_components/reservations/host-reservations-table";
 import { columns } from "./_components/reservations/columns";
-import prisma from "@/lib/prisma";
 import AnalyticsCard from "./_components/analytics-card";
 import IncomeCard from "./_components/income-card";
-import PropertyCard from "./_components/properties/property-card";
+import PropertiesLayout from "./properties/_components/properties-layout";
 
 const HostDashboardPage = async () => {
   const session = await getSession();
   const data = await prisma.reservation.findMany({
     include: { property: true },
+    where: { property: { hostId: session.uuid } },
   });
-  console.log({ data });
+
   return (
     <main className="main-content w-full pb-8">
       <div className="mt-4 grid grid-cols-12 gap-4 px-[var(--margin-x)] transition-all duration-[.25s] sm:mt-5 sm:gap-5 lg:mt-6 lg:gap-6">
@@ -39,20 +40,7 @@ const HostDashboardPage = async () => {
           <IncomeCard />
         </div>
       </div>
-      <div className="mt-4 pl-[var(--margin-x)] transition-all duration-[.25s] sm:mt-5 lg:mt-6">
-        <div className="rounded-l-lg bg-slate-150 pt-4 pb-1 dark:bg-navy-800">
-          <h2 className="px-4 text-base font-medium tracking-wide text-slate-700 line-clamp-1 dark:text-navy-100 sm:px-5 lg:text-lg">
-            Top Hotels
-          </h2>
-          <div className="scrollbar-sm mt-4 flex space-x-4 overflow-x-auto px-4 pb-4 sm:px-5">
-            <PropertyCard />
-            <PropertyCard />
-            <PropertyCard />
-            <PropertyCard />
-            <PropertyCard />
-          </div>
-        </div>
-      </div>
+      <PropertiesLayout />
     </main>
   );
 };

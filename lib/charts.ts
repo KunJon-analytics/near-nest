@@ -31,7 +31,7 @@ const charts: ChartType = {
             show: true,
             label: "Total",
             formatter: function (w) {
-              return w.config.series.reduce((s, v) => s + v);
+              return w.config.series.reduce((s: any, v: any) => s + v);
             },
           },
         },

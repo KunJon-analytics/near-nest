@@ -1,16 +1,24 @@
 "use server";
 
 import prisma from "@/lib/prisma";
-import { PropertiesParams } from "@/types";
+import { PropertiesParams, PropertiesSearchQuery } from "@/types";
 import { CreatePropertyParams } from "@/lib/schemas/host";
 import { defaultLocation } from "@/config/default";
 
 import { getSession } from "./session";
 
 export const getProperties = async (searchParams: PropertiesParams) => {
+  const data: PropertiesSearchQuery = {
+    hasAirCon: searchParams.hasAirCon === "true",
+    hasHeating: searchParams.hasHeating === "true",
+    hasInternet: searchParams.hasInternet === "true",
+    hasKitchen: searchParams.hasKitchen === "true",
+    hasPool: searchParams.hasPool === "true",
+    hasTv: searchParams.hasTv === "true",
+  };
   try {
     const properties = await prisma.property.findMany({
-      where: { ...searchParams },
+      where: { ...data },
       include: { host: true, media: true, reservations: true },
     });
     return properties;

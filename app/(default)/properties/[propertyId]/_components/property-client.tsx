@@ -98,7 +98,7 @@ const PropertyClient: React.FC<PropertyClientProps> = ({
           description: "Property reserved!",
         });
         setDateRange(initialDateRange);
-        return router.push(`/reservations/${response.success}`);
+        return router.push(`/dashboard/reservations/${response.success}`);
       }
 
       toast({

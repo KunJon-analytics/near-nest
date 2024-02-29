@@ -64,7 +64,7 @@ export interface PaymentDTO<T> {
   };
 }
 
-export type ReserveTx = { reservationId: string };
+export type ReservationTx = { reservationId: string };
 
 export type SiteConfig = {
   name: string;

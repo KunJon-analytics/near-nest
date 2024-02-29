@@ -2,11 +2,20 @@
 
 import prisma from "@/lib/prisma";
 import { Prisma } from "@prisma/client";
+import { eachDayOfInterval } from "date-fns";
+import { getSession } from "./session";
 
 interface IParams {
   propertyId?: string;
   userId?: string;
   hostId?: string;
+}
+
+interface ICreateReservationParams {
+  propertyId: string;
+  totalPrice: number;
+  checkInDate: Date;
+  checkOutDate: Date;
 }
 
 export async function getReservations(params: IParams) {
@@ -42,3 +51,52 @@ export async function getReservations(params: IParams) {
     throw new Error(error);
   }
 }
+
+export const createReservation = async (params: ICreateReservationParams) => {
+  const { propertyId, checkInDate, checkOutDate, totalPrice } = params;
+
+  if (!propertyId || !checkInDate || !checkOutDate || !totalPrice) {
+    return { error: "Invalid params" };
+  }
+  try {
+    const session = await getSession();
+    if (!session.isLoggedIn) {
+      return { error: "Unauthenticated" };
+    }
+
+    const reservations = await prisma.reservation.findMany({
+      where: {
+        status: "CONFIRMED",
+        propertyId,
+        OR: [
+          {
+            checkInDate: { lte: checkOutDate },
+            checkOutDate: { gte: checkInDate },
+          },
+          {
+            checkInDate: { gte: checkInDate },
+            checkOutDate: { lte: checkOutDate },
+          },
+        ],
+      },
+    });
+
+    if (!!reservations.length) {
+      return { error: "Invalid dates" };
+    }
+
+    const created = await prisma.reservation.create({
+      data: {
+        checkInDate,
+        checkOutDate,
+        totalPrice,
+        propertyId,
+        userId: session.uuid,
+      },
+    });
+    return { success: created.id };
+  } catch (error) {
+    console.log("CREATE_RESERVATION_ERROR", error);
+    return { error: "Server Error" };
+  }
+};

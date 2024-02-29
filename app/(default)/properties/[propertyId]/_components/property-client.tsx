@@ -3,13 +3,18 @@
 import axios from "axios";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { Range } from "react-date-range";
-import { useRouter } from "next/navigation";
-import { differenceInDays, eachDayOfInterval } from "date-fns";
+import { usePathname, useRouter } from "next/navigation";
+import {
+  differenceInDays,
+  eachDayOfInterval,
+  isEqual,
+  subDays,
+} from "date-fns";
 
 import { useToast } from "@/components/ui/use-toast";
 import { PropertyReturnType, ReservationReturnType } from "@/types";
-import { getSession } from "@/actions/session";
 import Container from "@/components/shared/container";
+import { createReservation } from "@/actions/reservations";
 
 import PropertyHead from "./property-head";
 import ProperyInfo from "./property-info";
@@ -24,22 +29,28 @@ const initialDateRange = {
 interface PropertyClientProps {
   reservations?: ReservationReturnType[];
   property: Omit<PropertyReturnType, "reservations">;
+  isLoggedIn: boolean;
 }
 
 const PropertyClient: React.FC<PropertyClientProps> = ({
   property,
   reservations = [],
+  isLoggedIn,
 }) => {
   const router = useRouter();
+  const pathname = usePathname();
   const { toast } = useToast();
 
   const disabledDates = useMemo(() => {
     let dates: Date[] = [];
+    const confirmedReservations = reservations.filter((reservation) => {
+      return reservation.status === "CONFIRMED";
+    });
 
-    reservations.forEach((reservation) => {
+    confirmedReservations.forEach((reservation) => {
       const range = eachDayOfInterval({
         start: new Date(reservation.checkInDate),
-        end: new Date(reservation.checkOutDate),
+        end: subDays(new Date(reservation.checkOutDate), 1),
       });
 
       dates = [...dates, ...range];
@@ -53,40 +64,59 @@ const PropertyClient: React.FC<PropertyClientProps> = ({
   const [dateRange, setDateRange] = useState<Range>(initialDateRange);
 
   const onCreateReservation = useCallback(async () => {
-    const session = await getSession();
-    if (!session.isLoggedIn) {
+    if (!isLoggedIn) {
       toast({
-        description: "You are currently not logged in",
+        description:
+          "You are currently not logged in, please login to continue",
         variant: "destructive",
       });
-      return;
+      return router.push(`/dashboard/login?redirect=${pathname}`);
+    }
+    if (!dateRange.startDate || !dateRange.endDate) {
+      return toast({
+        description: "No date was selected",
+        variant: "destructive",
+      });
     }
     setIsLoading(true);
 
-    axios
-      .post("/api/reservations", {
-        totalPrice,
-        startDate: dateRange.startDate,
-        endDate: dateRange.endDate,
+    try {
+      const isSameDate = isEqual(dateRange.endDate, dateRange.startDate);
+      if (isSameDate) {
+        return toast({
+          description: "Same date",
+          variant: "destructive",
+        });
+      }
+      const response = await createReservation({
+        checkInDate: dateRange.startDate,
+        checkOutDate: dateRange.endDate,
         propertyId: property.id,
-      })
-      .then(() => {
+        totalPrice,
+      });
+
+      if (response.success) {
         toast({
           description: "Property reserved!",
         });
         setDateRange(initialDateRange);
-        router.push("/trips");
-      })
-      .catch(() => {
-        toast({
-          description: "Something went wrong.",
-          variant: "destructive",
-        });
-      })
-      .finally(() => {
-        setIsLoading(false);
+        return router.push(`/reservations/${response.success}`);
+      }
+
+      toast({
+        description: `${response.error}`,
+        variant: "destructive",
       });
-  }, [totalPrice, dateRange, property.id, router]);
+    } catch (error) {
+      console.log(error);
+      toast({
+        description: "Something went wrong.",
+        variant: "destructive",
+      });
+    }
+
+    setIsLoading(false);
+  }, [totalPrice, dateRange, property.id, router, isLoggedIn]);
 
   useEffect(() => {
     if (dateRange.startDate && dateRange.endDate) {

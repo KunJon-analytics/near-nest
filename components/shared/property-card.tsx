@@ -97,7 +97,7 @@ const PropertyCard: React.FC<PropertyCardProps> = ({
           {reservationDate || data.rating}
         </div>
         <div className="flex flex-row items-center gap-1">
-          <div className="font-semibold">$ {price}</div>
+          <div className="font-semibold">π {price}</div>
           {!reservation && <div className="font-light">night</div>}
         </div>
         {onAction && actionLabel && (

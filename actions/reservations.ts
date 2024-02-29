@@ -46,6 +46,8 @@ export async function getReservations(params: IParams) {
       },
     });
 
+    // send notification
+
     return reservations;
   } catch (error: any) {
     throw new Error(error);

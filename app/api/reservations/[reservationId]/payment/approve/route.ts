@@ -36,6 +36,11 @@ export async function POST(
 
     */
 
+    if (currentPayment.data.metadata.reservationId !== reservationId) {
+      console.log("[RESERVATION_PAYMENT_APPROVE]", "Wrong reservation Id");
+      return new NextResponse("Wrong reservation Id", { status: 401 });
+    }
+
     const reservation = await prisma.reservation.findUnique({
       where: {
         id: reservationId,

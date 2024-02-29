@@ -4,6 +4,7 @@ import prisma from "@/lib/prisma";
 import platformAPIClient from "@/lib/platformAPIClient";
 import { ReservationTx, PaymentDTO } from "@/types";
 import { getSession } from "@/actions/session";
+import { inngest } from "@/inngest/client";
 
 export async function POST(
   req: Request,
@@ -38,7 +39,7 @@ export async function POST(
       add txid to payment
     */
 
-    // verify with horizon data (amound and txid)
+    // verify with horizon data (amount and txid)
 
     const reservation = await prisma.reservation.findUnique({
       where: {
@@ -63,9 +64,6 @@ export async function POST(
       return new NextResponse("Wrong reservation price", { status: 400 });
     }
 
-    // send inngest event to cancel clashing reservations -> send notification to
-    // affected users
-
     // let Pi server know that the payment is completed
     await platformAPIClient.post(`/v2/payments/${paymentId}/complete`, {
       txid,
@@ -75,10 +73,20 @@ export async function POST(
       where: { paymentId },
       data: { txId: txid, status: "COMPLETED" },
     });
-    await prisma.reservation.update({
+    const confirmedReservation = await prisma.reservation.update({
       where: { id: reservation.id },
       data: { status: "CONFIRMED" },
     });
+
+    // send inngest event to cancel clashing reservations -> send notification to
+    // affected users
+    await inngest.send({
+      name: "reservations/clashes.cancel",
+      data: {
+        reservationId: confirmedReservation.id,
+      },
+    });
+
     return new NextResponse(`Completed the payment ${paymentId}`, {
       status: 200,
     });

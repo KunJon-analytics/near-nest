@@ -3,18 +3,19 @@ import axios from "axios";
 
 import prisma from "@/lib/prisma";
 import platformAPIClient from "@/lib/platformAPIClient";
-import { PaymentDTO, ReserveTx } from "@/types";
+import { PaymentDTO, ReservationTx } from "@/types";
 
 export async function POST(req: Request) {
   try {
-    const { payment }: { payment: PaymentDTO<ReserveTx> } = await req.json();
+    const { payment }: { payment: PaymentDTO<ReservationTx> } =
+      await req.json();
     const paymentId = payment.identifier;
     const txid = payment?.transaction?.txid as string;
     const txURL = payment?.transaction?._link as string;
 
-    const currentPayment = await platformAPIClient.get<PaymentDTO<ReserveTx>>(
-      `/v2/payments/${paymentId}`
-    );
+    const currentPayment = await platformAPIClient.get<
+      PaymentDTO<ReservationTx>
+    >(`/v2/payments/${paymentId}`);
 
     const piTransaction = await prisma.payment.findUnique({
       where: { paymentId },

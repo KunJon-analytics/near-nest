@@ -36,7 +36,9 @@ const ReservationDetailPage = async ({ params }: { params: IParams }) => {
 
         <div className="flex">
           <PrintButton />
-          {reservation.status === "PENDING" && <PayButton />}
+          {reservation.status === "PENDING" && (
+            <PayButton reservation={reservation} />
+          )}
         </div>
       </div>
       <div className="grid grid-cols-1">

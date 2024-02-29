@@ -35,7 +35,7 @@ export async function logout() {
   const session = await getSession();
   session.destroy();
   revalidatePath("/", "layout");
-  redirect(`/`);
+  // redirect(`/`);
 }
 
 export async function login(auth: LoginParam) {

@@ -9,6 +9,7 @@ import {
   eachDayOfInterval,
   isEqual,
   subDays,
+  addDays,
 } from "date-fns";
 
 import { useToast } from "@/components/ui/use-toast";
@@ -82,15 +83,12 @@ const PropertyClient: React.FC<PropertyClientProps> = ({
 
     try {
       const isSameDate = isEqual(dateRange.endDate, dateRange.startDate);
-      if (isSameDate) {
-        return toast({
-          description: "Same date",
-          variant: "destructive",
-        });
-      }
+
       const response = await createReservation({
         checkInDate: dateRange.startDate,
-        checkOutDate: dateRange.endDate,
+        checkOutDate: isSameDate
+          ? addDays(dateRange.endDate, 1)
+          : dateRange.endDate,
         propertyId: property.id,
         totalPrice,
       });

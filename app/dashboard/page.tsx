@@ -23,13 +23,15 @@ const DashboardPage = async () => {
           title="Find Your Home"
           link="/dashboard/user"
         />
-        <DashboardPageCard
-          buttonText="Manage Properties"
-          description="List, manage, and earn from your properties hassle-free with our platform"
-          image="/images/illustrations/responsive.svg"
-          title="Manage Properties"
-          link="/dashboard/host"
-        />
+        {session.isHost && (
+          <DashboardPageCard
+            buttonText="Manage Properties"
+            description="List, manage, and earn from your properties hassle-free with our platform"
+            image="/images/illustrations/responsive.svg"
+            title="Manage Properties"
+            link="/dashboard/host"
+          />
+        )}
 
         {!session.isHost && (
           <DashboardPageCard

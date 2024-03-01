@@ -3,6 +3,7 @@
 import { HandCoins } from "lucide-react";
 import { useRouter } from "next/navigation";
 import React from "react";
+import { differenceInDays } from "date-fns";
 
 import { Button } from "@/components/ui/button";
 import axiosClient, { config } from "@/lib/axios-client";
@@ -14,12 +15,13 @@ import {
 } from "@/types";
 import { logout } from "@/actions/session";
 import { useToast } from "@/components/ui/use-toast";
+import { cn } from "@/lib/utils";
 
-interface IProps {
+interface IProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   reservation: ReservationReturnType;
 }
 
-const PayButton = ({ reservation }: IProps) => {
+const PayButton = ({ reservation, className }: IProps) => {
   const { toast } = useToast();
   const router = useRouter();
 
@@ -77,6 +79,11 @@ const PayButton = ({ reservation }: IProps) => {
   };
 
   const reserve = async () => {
+    const noOfDaysReserved = differenceInDays(
+      reservation.checkOutDate,
+      reservation.checkInDate
+    );
+    const isMultipleDays = noOfDaysReserved > 1;
     try {
       const paymentData: {
         amount: number;
@@ -84,7 +91,11 @@ const PayButton = ({ reservation }: IProps) => {
         metadata: ReservationTx;
       } = {
         amount: reservation.totalPrice,
-        memo: `Pay π${reservation.totalPrice} for your reservation at ${reservation.property.title}`,
+        memo: `Pay π${
+          reservation.totalPrice
+        } for your ${noOfDaysReserved} nights reservation${
+          isMultipleDays ? "s" : ""
+        } at ${reservation.property.title}`,
         metadata: { reservationId: reservation.id },
       };
 
@@ -114,7 +125,7 @@ const PayButton = ({ reservation }: IProps) => {
       variant="ghost"
       size="icon"
       onClick={reserve}
-      className="btn h-8 w-8 rounded-full p-0 hover:bg-slate-300/20 focus:bg-slate-300/20 active:bg-slate-300/25 dark:hover:bg-navy-300/20 dark:focus:bg-navy-300/20 dark:active:bg-navy-300/25 sm:h-9 sm:w-9"
+      className={cn("btn h-8 w-8 rounded-full p-0 hover:bg-slate-300/20 focus:bg-slate-300/20 active:bg-slate-300/25 dark:hover:bg-navy-300/20 dark:focus:bg-navy-300/20 dark:active:bg-navy-300/25 sm:h-9 sm:w-9", className)}
     >
       <HandCoins className="h-5 w-5" />
     </Button>

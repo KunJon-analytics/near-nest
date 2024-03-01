@@ -29,7 +29,7 @@ export interface DataTableProps<TData, TValue> {
   data: TData[];
 }
 
-export function HostReservationsTable<TData, TValue>({
+export function UserReservationsTable<TData, TValue>({
   columns,
   data,
 }: DataTableProps<TData, TValue>) {

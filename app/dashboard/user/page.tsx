@@ -5,7 +5,7 @@ import prisma from "@/lib/prisma";
 
 import { UserDropdown } from "./_components/user-dropdown";
 import UserStats from "./_components/user-stats";
-import { HostReservationsTable } from "./_components/reservations/user-reservations-table";
+import { UserReservationsTable } from "./_components/reservations/user-reservations-table";
 import { columns } from "./_components/reservations/columns";
 import AnalyticsCard from "./_components/analytics-card";
 import IncomeCard from "./_components/income-card";
@@ -32,7 +32,7 @@ const UserDashboardPage = async () => {
 
           <UserStats />
 
-          <HostReservationsTable columns={columns} data={data} />
+          <UserReservationsTable columns={columns} data={data} />
         </div>
         <div className="col-span-12 grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-5 lg:col-span-4 lg:grid-cols-1 lg:gap-6 xl:col-span-3">
           <AnalyticsCard />

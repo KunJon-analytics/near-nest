@@ -72,12 +72,12 @@ export const createReservation = async (params: ICreateReservationParams) => {
         propertyId,
         OR: [
           {
-            checkInDate: { lte: checkOutDate },
-            checkOutDate: { gte: checkInDate },
+            checkInDate: { lt: checkOutDate },
+            checkOutDate: { gt: checkInDate },
           },
           {
             checkInDate: { gte: checkInDate },
-            checkOutDate: { lte: checkOutDate },
+            checkOutDate: { lt: checkOutDate },
           },
         ],
       },

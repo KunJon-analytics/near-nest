@@ -32,12 +32,12 @@ export const cancelClashingReservations = inngest.createFunction(
               propertyId: completedReservation.propertyId,
               OR: [
                 {
-                  checkInDate: { lte: completedReservation.checkOutDate },
-                  checkOutDate: { gte: completedReservation.checkInDate },
+                  checkInDate: { lt: completedReservation.checkOutDate },
+                  checkOutDate: { gt: completedReservation.checkInDate },
                 },
                 {
                   checkInDate: { gte: completedReservation.checkInDate },
-                  checkOutDate: { lte: completedReservation.checkOutDate },
+                  checkOutDate: { lt: completedReservation.checkOutDate },
                 },
               ],
             },

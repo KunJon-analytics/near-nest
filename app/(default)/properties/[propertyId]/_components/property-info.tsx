@@ -46,7 +46,6 @@ const ProperyInfo: React.FC<ProperyInfoProps> = ({ property }) => {
           <div>{property.totalBathroom} bathrooms</div>
         </div>
       </div>
-      <hr />
 
       <hr />
       <div

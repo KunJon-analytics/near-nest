@@ -3,8 +3,8 @@ import { DefaultConfig } from "@/types";
 export const defaultConfig: DefaultConfig = {
   mainNav: [
     {
-      title: "Help",
-      href: "/help",
+      title: "Properties",
+      href: "/properties",
     },
     {
       title: "Contact",

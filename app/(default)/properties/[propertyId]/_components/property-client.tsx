@@ -1,6 +1,5 @@
 "use client";
 
-import axios from "axios";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { Range } from "react-date-range";
 import { usePathname, useRouter } from "next/navigation";

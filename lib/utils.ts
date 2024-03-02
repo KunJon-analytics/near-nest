@@ -52,14 +52,16 @@ export function getStage(stage: string | undefined): Stage {
 export function getReservationColor(status: $Enums.ReservationStatus): string {
   switch (status) {
     case "PENDING":
-      return "bg-info dark:bg-info";
+      return "info";
     case "CANCELLED":
-      return "bg-error dark:bg-error";
+      return "error";
     case "CONFIRMED":
-      return "bg-success dark:bg-success";
+      return "secondary";
+    case "COMPLETED":
+      return "success";
 
     default:
-      return "bg-info dark:bg-info";
+      return "info";
   }
 }
 

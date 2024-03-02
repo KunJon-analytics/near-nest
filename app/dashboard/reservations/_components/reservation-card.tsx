@@ -5,6 +5,8 @@ import { differenceInDays, formatDistanceToNow } from "date-fns";
 import { Info } from "lucide-react";
 
 import { ReservationReturnType } from "@/types";
+import { cn, getReservationColor } from "@/lib/utils";
+
 import PayButton from "../[reservationId]/_components/pay-button";
 
 interface Iprops {
@@ -17,6 +19,7 @@ const ReservationCard = ({ data }: Iprops) => {
     data.checkInDate
   );
   const isMultipleDays = noOfDaysReserved > 1;
+  const color = getReservationColor(data.status);
   return (
     <div className="card">
       <Image
@@ -41,9 +44,21 @@ const ReservationCard = ({ data }: Iprops) => {
           <div className="flex items-center justify-between">
             <div className="flex items-center text-xs text-slate-200">
               <p className="flex items-center space-x-1">
-                <Info className="h-3.5 w-3.5" />
+                <Info
+                  className={cn(
+                    "h-3.5 w-3.5",
+                    `text-${color} dark:text-${color}`
+                  )}
+                />
 
-                <span className="line-clamp-1">{data.status}</span>
+                <span
+                  className={cn(
+                    "line-clamp-1",
+                    `text-${color} dark:text-${color}`
+                  )}
+                >
+                  {data.status}
+                </span>
               </p>
               <div className="mx-3 my-0.5 w-px self-stretch bg-white/20"></div>
               <p className="shrink-0 text-tiny+">

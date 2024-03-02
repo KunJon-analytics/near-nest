@@ -113,7 +113,11 @@ export const columns: ColumnDef<ReservationReturnType>[] = [
       const color = getReservationColor(status);
 
       return (
-        <Badge className={cn("badge rounded-full", color)}>{status}</Badge>
+        <Badge
+          className={cn("badge rounded-full", `bg-${color} dark:bg-${color}`)}
+        >
+          {status}
+        </Badge>
       );
     },
   },

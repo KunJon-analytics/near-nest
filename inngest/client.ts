@@ -16,9 +16,23 @@ type CancelClashedReservations = {
   };
 };
 
+type HostClaimPayment = {
+  data: {
+    reservationId: string;
+  };
+};
+
+type FinishClaim = {
+  data: {
+    paymentId: string;
+  };
+};
+
 type Events = {
   "users/point.change": ChangePoints;
   "reservations/clashes.cancel": CancelClashedReservations;
+  "reservations/host.claim": HostClaimPayment;
+  "payments/tx.finish": FinishClaim;
 };
 
 // Create a client to send and receive events

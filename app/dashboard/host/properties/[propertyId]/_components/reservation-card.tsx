@@ -1,6 +1,7 @@
 import Image from "next/image";
 import React from "react";
 import { differenceInDays, format } from "date-fns";
+import Link from "next/link";
 
 import { Reservation } from "@prisma/client";
 import AvatarIcon from "@/components/shared/user-avatar";
@@ -32,18 +33,18 @@ const ReservationCard = ({ reservation }: IProps) => {
           </a>
         </div>
         <div>
-          <a
-            href="#"
+          <Link
+            href={`/dashboard/host/reservations/${reservation.id}`}
             className="text-lg font-medium text-slate-700 hover:text-primary focus:text-primary dark:text-navy-100 dark:hover:text-accent-light dark:focus:text-accent-light"
           >
             {`Reservation for ${difference} night${isPlural ? "s" : ""}`}
-          </a>
+          </Link>
         </div>
 
         <div className="grow">
           <div className="mt-2 flex items-center text-xs">
-            <a
-              href="#"
+            <Link
+              href={`/dashboard/host/reservations/${reservation.id}`}
               className="flex items-center space-x-2 hover:text-slate-800 dark:hover:text-navy-100"
             >
               <AvatarIcon size={40} uuid={reservation.userId} />
@@ -51,7 +52,7 @@ const ReservationCard = ({ reservation }: IProps) => {
               <span className="line-clamp-1">
                 {format(reservation.checkInDate, "MM/dd/yyyy")}
               </span>
-            </a>
+            </Link>
             <div className="mx-3 my-1 w-px self-stretch bg-slate-200 dark:bg-navy-500"></div>
             <span className="shrink-0 text-slate-400 dark:text-navy-300">
               {format(reservation.checkOutDate, "MM/dd/yyyy")}

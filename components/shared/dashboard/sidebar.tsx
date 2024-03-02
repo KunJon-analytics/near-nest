@@ -4,8 +4,10 @@ import React from "react";
 
 import { Profile } from "./profile-dropdown";
 import SidebarLinks from "./sidebar-links";
+import { getSession } from "@/actions/session";
 
-const Sidebar = () => {
+const Sidebar = async () => {
+  const session = await getSession();
   return (
     // <!-- Sidebar -->
     <div className="sidebar print:hidden">

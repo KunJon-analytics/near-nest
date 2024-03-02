@@ -41,14 +41,14 @@ const PropertyClient: React.FC<PropertyClientProps> = ({
   const pathname = usePathname();
   const { toast } = useToast();
 
-  console.log({ reservations });
+  // console.log({ reservations });
 
   const disabledDates = useMemo(() => {
     let dates: Date[] = [];
     const confirmedReservations = reservations.filter((reservation) => {
       return reservation.status === "CONFIRMED";
     });
-    console.log({ confirmedReservations });
+    // console.log({ confirmedReservations });
 
     confirmedReservations.forEach((reservation) => {
       const range = eachDayOfInterval({

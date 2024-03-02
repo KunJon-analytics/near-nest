@@ -55,6 +55,13 @@ const ProperyInfo: React.FC<ProperyInfoProps> = ({ property }) => {
         {property.description}
       </div>
       <hr />
+      <div
+        className="
+      text-lg font-light text-neutral-500"
+      >
+        {property.address}
+      </div>
+      <hr />
       <Map center={[property.latitude, property.longitude]} />
     </div>
   );

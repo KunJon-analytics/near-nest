@@ -5,6 +5,7 @@ import Image from "next/image";
 import { PropertyReturnType } from "@/types";
 import { getByValue } from "@/lib/utils";
 import Heading from "@/components/shared/heading";
+import PropertyImageSlider from "./property-image-slider";
 
 interface PropertyHeadProps {
   property: Omit<PropertyReturnType, "reservations">;
@@ -28,12 +29,7 @@ const PropertyHead: React.FC<PropertyHeadProps> = ({ property }) => {
           relative
         "
       >
-        <Image
-          src={property.media[0].url}
-          fill
-          className="object-cover w-full"
-          alt="Image"
-        />
+        <PropertyImageSlider property={property} />
       </div>
     </>
   );

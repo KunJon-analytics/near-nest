@@ -9,7 +9,7 @@ export const defaultConfig: DefaultConfig = {
     {
       title: "Contact",
       href: "/contact",
-      // disabled: true,
+      disabled: true,
     },
     // {
     //   title: "Documentation",

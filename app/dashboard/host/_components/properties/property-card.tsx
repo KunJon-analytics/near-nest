@@ -32,7 +32,7 @@ const PropertyCard = ({ property }: PropertyCardProps) => {
         </div>
         <div className="mt-2">
           <Link
-            href={`/dashboard/host/properties/${property.id}/update`}
+            href={`/dashboard/host/properties/${property.id}`}
             className="text-sm+ font-medium text-slate-700 line-clamp-1 hover:text-primary focus:text-primary dark:text-navy-100 dark:hover:text-accent-light dark:focus:text-accent-light"
           >
             {property.title}.

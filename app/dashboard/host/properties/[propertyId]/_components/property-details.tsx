@@ -2,6 +2,7 @@ import React from "react";
 import Image from "next/image";
 
 import { PropertyReturnType } from "@/types";
+import PropertyImageSlider from "./property-image-slider";
 
 interface IProps {
   property: PropertyReturnType;
@@ -14,13 +15,9 @@ const PropertyDetails = ({ property }: IProps) => {
         {property.title}
       </h1>
       <h3 className="mt-1">{property.description}</h3>
-      <Image
-        className="mt-5 h-80 w-full rounded-lg object-cover object-center"
-        src={property.media[0].url || "/images/800x600.png"}
-        alt="image"
-        width={800}
-        height={600}
-      />
+      <PropertyImageSlider property={property} />
+      <br />
+      <p>{property.address}</p>
     </div>
   );
 };

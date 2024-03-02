@@ -1,21 +1,29 @@
 "use client";
 
+import Image from "next/image";
 import React from "react";
-import dynamic from "next/dynamic";
+// import dynamic from "next/dynamic";
 
-import charts from "@/lib/charts";
+// import charts from "@/lib/charts";
 
-const Chart = dynamic(() => import("react-apexcharts"), { ssr: false });
+// const Chart = dynamic(() => import("react-apexcharts"), { ssr: false });
 
 const AnalyticsChart = () => {
   return (
-    <Chart
-      type="radialBar"
-      height={250}
-      width={"100%"}
-      options={charts.travelAnalytics}
-      series={charts.travelAnalytics.series}
+    <Image
+      className="mx-auto w-full"
+      src="/images/coming-soon.png"
+      alt="image"
+      width="4000"
+      height="4000"
     />
+    // <Chart
+    //   type="radialBar"
+    //   height={250}
+    //   width={"100%"}
+    //   options={charts.travelAnalytics}
+    //   series={charts.travelAnalytics.series}
+    // />
   );
 };
 

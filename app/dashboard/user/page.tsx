@@ -30,7 +30,7 @@ const UserDashboardPage = async () => {
             </div>
           </div>
 
-          <UserStats />
+          <UserStats reservations={data} points={session.points} />
 
           <UserReservationsTable columns={columns} data={data} />
         </div>

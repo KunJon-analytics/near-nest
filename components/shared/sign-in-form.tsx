@@ -4,7 +4,7 @@ import * as React from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 
 import { cn } from "@/lib/utils";
-import { AuthResult, LoginPageSearchParams } from "@/types";
+import { AuthResult } from "@/types";
 import { onIncompletePaymentFound } from "@/lib/pi";
 import { defaultLoginRedirect } from "@/config/default";
 

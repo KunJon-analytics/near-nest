@@ -1,11 +1,10 @@
 import React from "react";
 
 import { getSession } from "@/actions/session";
-import { LoginPageSearchParams } from "@/types";
 
 import { MobileSidebar } from "./mobile-sidebar";
 import { Notifications } from "./notifications";
-import { RightSheet } from "./right-sheet";
+// import { RightSheet } from "./right-sheet";
 import SignInForm from "../sign-in-form";
 import { ModeToggle } from "../layout/mode-toggle";
 
@@ -27,7 +26,7 @@ const Navbar = async () => {
               <div className="flex">
                 <Notifications />
               </div>
-              <RightSheet />
+              {/* <RightSheet /> */}
             </>
           ) : (
             <SignInForm />

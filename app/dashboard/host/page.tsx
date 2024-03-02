@@ -31,7 +31,7 @@ const HostDashboardPage = async () => {
             </div>
           </div>
 
-          <HostStats />
+          <HostStats reservations={data} />
 
           <HostReservationsTable columns={columns} data={data} />
         </div>

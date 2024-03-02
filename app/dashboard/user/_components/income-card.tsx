@@ -14,7 +14,7 @@ const IncomeCard = () => {
         <UserDropdown />
       </div>
       <p className="grow px-4 text-xl font-semibold text-slate-700 dark:text-navy-100 sm:px-5">
-        $34.6k
+        Coming Soon
       </p>
       <div className="ax-transparent-gridline">
         <IncomeChart />

@@ -5,6 +5,7 @@ import { changePoints } from "@/inngest/functions/users/change-points";
 import { cancelClashingReservations } from "@/inngest/functions/reservations/cancel-clashing-reservations";
 import { finishClaim } from "@/inngest/functions/payments/finish-claim";
 import { clearIncompleteRoutine } from "@/inngest/functions/payments/clear-incomplete-routine";
+import { cancelExpiredReservations } from "@/inngest/functions/reservations/cancel-expired-reservations";
 
 // Create an API that serves zero functions
 export const { GET, POST, PUT } = serve({
@@ -15,5 +16,6 @@ export const { GET, POST, PUT } = serve({
     cancelClashingReservations,
     finishClaim,
     clearIncompleteRoutine,
+    cancelExpiredReservations,
   ],
 });

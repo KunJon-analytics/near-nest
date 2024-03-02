@@ -52,6 +52,9 @@ export const cancelClashingReservations = inngest.createFunction(
           const invalidReservationsId = invalidReservations.map(
             (reservation) => reservation.id
           );
+          if (!invalidReservationsId.length) {
+            return [];
+          }
           prisma.$transaction(
             invalidReservationsId.map((reservationId) =>
               prisma.reservation.update({

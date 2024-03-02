@@ -10,10 +10,16 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import dashboardLinks from "@/config/dashboard-links";
+import { getDashboardLinks } from "@/config/dashboard-links";
 
-const SidebarLinks = () => {
+interface IProps {
+  isHost: boolean;
+}
+
+const SidebarLinks = ({ isHost }: IProps) => {
   const pathname = usePathname();
+  const dashboardLinks = getDashboardLinks(isHost);
+
   return (
     <div className="is-scrollbar-hidden flex grow flex-col space-y-4 overflow-y-auto pt-6">
       {dashboardLinks.map(({ href, icon: Icon, name }) => (

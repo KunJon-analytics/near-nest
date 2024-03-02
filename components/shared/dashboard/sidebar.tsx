@@ -1,10 +1,11 @@
-import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
+import { getSession } from "@/actions/session";
+
 import { Profile } from "./profile-dropdown";
 import SidebarLinks from "./sidebar-links";
-import { getSession } from "@/actions/session";
+import { Icons } from "../icons";
 
 const Sidebar = async () => {
   const session = await getSession();
@@ -17,22 +18,16 @@ const Sidebar = async () => {
           {/* <!-- Application Logo --> */}
           <div className="flex pt-4">
             <Link href="/">
-              <Image
-                className="h-11 w-11 transition-transform duration-500 ease-in-out hover:rotate-[360deg]"
-                src="/images/app-logo.svg"
-                alt="logo"
-                width="32"
-                height="32"
-              />
+              <Icons.logo className="h-11 w-11 transition-transform duration-500 ease-in-out hover:rotate-[360deg]" />
             </Link>
           </div>
 
-          <SidebarLinks />
+          <SidebarLinks isHost={session.isHost} />
 
           {/* <!-- Bottom Links --> */}
           <div className="flex flex-col items-center space-y-3 py-3 mt-16">
             {/* <!-- Settings --> */}
-            <Link
+            {/* <Link
               href="/dashboard/profile"
               className="flex h-11 w-11 items-center justify-center rounded-lg outline-none transition-colors duration-200 hover:bg-primary/20 focus:bg-primary/20 active:bg-primary/25 dark:hover:bg-navy-300/20 dark:focus:bg-navy-300/20 dark:active:bg-navy-300/25"
             >
@@ -52,10 +47,10 @@ const Sidebar = async () => {
                   d="M11.995 15.332c1.794 0 3.248-1.464 3.248-3.27 0-1.807-1.454-3.272-3.248-3.272-1.794 0-3.248 1.465-3.248 3.271 0 1.807 1.454 3.271 3.248 3.271Z"
                 />
               </svg>
-            </Link>
+            </Link> */}
 
             {/* <!-- Profile --> */}
-            <div className="flex">
+            <div className="flex mt-40">
               <Profile />
             </div>
           </div>

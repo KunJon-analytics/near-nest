@@ -1,16 +1,13 @@
 import {
   LucideIcon,
   Home,
-  Landmark,
-  HelpCircle,
-  Route,
-  BookUser,
-  ArrowLeftRight,
   Info,
   Building,
   Laugh,
   Images,
   Settings,
+  BookMarked,
+  PlusCircle,
 } from "lucide-react";
 
 import { Stage } from "@/lib/utils";
@@ -21,14 +18,25 @@ export type DashboardLink = {
   icon: LucideIcon;
 };
 
-const dashboardLinks: DashboardLink[] = [
-  { href: "/dashboard", icon: Home, name: "Dashboard" },
-  // { href: "/dashboard/marketplace", icon: Store, name: "Market" },
-  { href: "/dashboard/offers/create", icon: Landmark, name: "Escrow" },
-  { href: "/dashboard/offers", icon: ArrowLeftRight, name: "Offers" },
-  { href: "/dashboard/steps", icon: Route, name: "Steps" },
-  { href: "/dashboard/contact", icon: BookUser, name: "Contact" },
-  { href: "/dashboard/help", icon: HelpCircle, name: "Help" },
+const userDashboardLinks: DashboardLink[] = [
+  { href: "/dashboard/user", icon: Home, name: "Dashboard" },
+  { href: "/dashboard/reservations", icon: BookMarked, name: "Reservations" },
+  { href: "/dashboard/be-a-host", icon: Building, name: "Start Hosting" },
+];
+
+const hostDashboardLinks: DashboardLink[] = [
+  { href: "/dashboard/host", icon: Home, name: "Dashboard" },
+  { href: "/dashboard/host/properties", icon: Building, name: "Properties" },
+  {
+    href: "/dashboard/host/reservations",
+    icon: BookMarked,
+    name: "Reservations",
+  },
+  {
+    href: "/dashboard/host/properties/create",
+    icon: PlusCircle,
+    name: "Add property",
+  },
 ];
 
 export interface TabElement {
@@ -45,4 +53,6 @@ export const tabElements: TabElement[] = [
   { icon: Settings, name: "Property Status", title: "status" },
 ];
 
-export default dashboardLinks;
+export const getDashboardLinks = (isHost: boolean) => {
+  return isHost ? hostDashboardLinks : userDashboardLinks;
+};

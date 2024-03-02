@@ -33,7 +33,7 @@ export async function Profile() {
         <Button
           variant="ghost"
           size="icon"
-          className="border-0 avatar h-12 w-12"
+          className="border-0 relative avatar h-12 w-12"
         >
           <UserAvatar size={200} uuid={session.uuid} />
           <span className="absolute bottom-12 right-4 h-3.5 w-3.5 rounded-full border-2 border-white bg-success dark:border-navy-700"></span>
@@ -57,7 +57,7 @@ export async function Profile() {
         </DropdownMenuLabel>
         <DropdownMenuGroup>
           <DropdownMenuItem>
-            <ProfileDropdownItems />
+            <ProfileDropdownItems isHost={session.isHost} />
           </DropdownMenuItem>
         </DropdownMenuGroup>
       </DropdownMenuContent>

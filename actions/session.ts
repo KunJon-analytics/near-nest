@@ -3,8 +3,6 @@
 import { getIronSession } from "iron-session";
 import { cookies } from "next/headers";
 import { revalidatePath } from "next/cache";
-import { redirect } from "next/navigation";
-import crypto from "crypto";
 
 import { sessionOptions } from "@/lib/session";
 import { LoginParam } from "@/types";
@@ -67,7 +65,6 @@ export async function login(auth: LoginParam) {
       uuid: auth.user.uid,
       username: auth.user.username,
       accessToken: auth.accessToken,
-      referralCode: crypto.randomUUID(),
     },
   });
   session.points = user.points;

@@ -20,7 +20,7 @@ const HostDashboardPage = async () => {
 
   return (
     <main className="main-content w-full pb-8">
-      <div className="mt-4 grid grid-cols-12 gap-4 px-[var(--margin-x)] transition-all duration-[.25s] sm:mt-5 sm:gap-5 lg:mt-6 lg:gap-6">
+      <div className="mt-4 grid grid-cols-12 gap-4 px-[var(--margin-x)] transition-all sm:mt-5 sm:gap-5 lg:mt-6 lg:gap-6">
         <div className="card col-span-12 lg:col-span-8 xl:col-span-9">
           <div className="mt-3 flex items-center justify-between px-4 sm:px-5">
             <h2 className="text-base font-medium tracking-wide text-slate-700 line-clamp-1 dark:text-navy-100">

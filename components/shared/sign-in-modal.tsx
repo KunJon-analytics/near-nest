@@ -51,8 +51,8 @@ export function SignInModal({ size = "sm" }: SignInModalProps) {
             <DialogTitle> Sign In</DialogTitle>
             <DialogDescription className="text-center">
               Unlock the door to seamless rentals! Sign in with your Pi Network
-              wallet and dive into a world of effortless transactions. Let's get
-              you started!
+              wallet and dive into a world of effortless transactions.
+              Let&apos;s get you started!
             </DialogDescription>
           </DialogHeader>
           <SignInForm />
@@ -76,8 +76,8 @@ export function SignInModal({ size = "sm" }: SignInModalProps) {
           <DrawerTitle> Sign In</DrawerTitle>
           <DrawerDescription className="text-center">
             Unlock the door to seamless rentals! Sign in with your Pi Network
-            wallet and dive into a world of effortless transactions. Let's get
-            you started!
+            wallet and dive into a world of effortless transactions. Let&apos;s
+            get you started!
           </DrawerDescription>
         </DrawerHeader>
         <SignInForm className="px-4" />

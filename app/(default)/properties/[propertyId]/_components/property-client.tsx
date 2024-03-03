@@ -116,7 +116,7 @@ const PropertyClient: React.FC<PropertyClientProps> = ({
     }
 
     setIsLoading(false);
-  }, [totalPrice, dateRange, property.id, router, isLoggedIn]);
+  }, [totalPrice, dateRange, property.id, router, isLoggedIn, pathname, toast]);
 
   useEffect(() => {
     if (dateRange.startDate && dateRange.endDate) {

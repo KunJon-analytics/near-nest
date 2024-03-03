@@ -13,7 +13,7 @@ const PropertiesLayout = async () => {
   });
 
   return (
-    <div className="mt-4 pl-[var(--margin-x)] transition-all duration-[.25s] sm:mt-5 lg:mt-6">
+    <div className="mt-4 pl-[var(--margin-x)] transition-all sm:mt-5 lg:mt-6">
       <div className="rounded-l-lg bg-slate-150 pt-4 pb-1 dark:bg-navy-800">
         <h2 className="px-4 text-base font-medium tracking-wide text-slate-700 line-clamp-1 dark:text-navy-100 sm:px-5 lg:text-lg">
           Properties

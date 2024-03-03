@@ -10,6 +10,8 @@ import { siteConfig } from "@/config/site";
 import { platformFee } from "@/config/default";
 import PrintButton from "@/app/dashboard/reservations/[reservationId]/_components/print-button";
 
+import ClaimButton from "./_components/claim-button";
+
 interface IParams {
   reservationId?: string;
 }
@@ -34,6 +36,9 @@ const ReservationDetailPage = async ({ params }: { params: IParams }) => {
 
         <div className="flex">
           <PrintButton />
+          {reservation.status === "CONFIRMED" && (
+            <ClaimButton reservation={reservation} />
+          )}
         </div>
       </div>
       <div className="grid grid-cols-1">

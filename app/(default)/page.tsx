@@ -1,4 +1,4 @@
-import { orderByDistance } from "geolib";
+import { getDistance } from "geolib";
 
 import Container from "@/components/shared/container";
 import { PropertiesParams } from "@/types";
@@ -18,19 +18,31 @@ export default async function Home({ searchParams }: HomeProps) {
   const session = await getSession();
   const useLocation = !!searchParams.useLocation && session.isLoggedIn;
   const data = useLocation
-    ? orderByDistance(
-        {
-          latitude: Number(session.latitude),
-          longitude: Number(session.longitude),
-        },
-        properties
-      )
+    ? properties
+        .map((property) => {
+          return {
+            ...property,
+            distance: getDistance(
+              {
+                latitude: property.latitude,
+                longitude: property.longitude,
+              },
+              {
+                latitude: Number(session.latitude),
+                longitude: Number(session.longitude),
+              }
+            ),
+          };
+        })
+        .sort((a, b) => a.distance - b.distance)
     : properties;
+
+  console.log({ data });
 
   return (
     <div className="">
       <Amenities />
-      {properties.length === 0 ? (
+      {data.length === 0 ? (
         <EmptyState showReset />
       ) : (
         <Container>
@@ -47,7 +59,7 @@ export default async function Home({ searchParams }: HomeProps) {
             gap-8
           "
           >
-            {properties.map((property) => (
+            {data.map((property) => (
               <PropertyCard key={property.id} data={property} />
             ))}
           </div>

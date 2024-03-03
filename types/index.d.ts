@@ -69,6 +69,7 @@ export type ReservationTx = { reservationId: string };
 export type SiteConfig = {
   name: string;
   description: string;
+  title: string;
   url: string;
   ogImage: string;
   mailSupport: string;

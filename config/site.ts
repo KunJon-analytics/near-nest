@@ -5,8 +5,9 @@ const site_url = env.NEXT_PUBLIC_APP_URL;
 
 export const siteConfig: SiteConfig = {
   name: "Near Nest",
+  title: "Near Nest: Book Unique Stays with Pi Network Tokens",
   description:
-    "Join Word Rush and earn Pi tokens by being the first person to find a word. A new word is revealed every hour, or until someone finds it. Hurry up and play now!",
+    "Discover cozy accommodations on Near Nest, where you can pay for your stay using Pi Network tokens. Explore a world of comfort and convenience!",
   url: site_url,
   ogImage: `${site_url}/og.jpg`,
   links: {

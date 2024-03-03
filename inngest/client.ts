@@ -22,11 +22,23 @@ type FinishClaim = {
   };
 };
 
+type ChangePotValue = {
+  data: {
+    name: string;
+    increment?: number;
+    decrement?: number;
+  };
+  user: {
+    uuid: string;
+  };
+};
+
 type Events = {
   "users/point.change": ChangePoints;
   "reservations/clashes.cancel": CancelClashedReservations;
   "payments/tx.finish": FinishClaim;
   "payments/incomplete.clear": {};
+  "pots/value.change": ChangePotValue;
 };
 
 // Create a client to send and receive events

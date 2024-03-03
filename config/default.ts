@@ -26,3 +26,5 @@ export const defaultLoginRedirect = "/dashboard/host";
 export const defaultLocation = { latitude: 39.0, longitude: 34.0 };
 
 export const platformFee = 10;
+
+export const potsConfig = { platform: "near-nest" };

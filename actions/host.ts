@@ -5,7 +5,7 @@ import { addHours, isPast } from "date-fns";
 
 import prisma from "@/lib/prisma";
 import { BeaHostParams } from "@/lib/schemas/host";
-import { platformFee } from "@/config/default";
+import { platformFee, potsConfig } from "@/config/default";
 import { safeParse } from "@/lib/pi";
 import { pi } from "@/lib/pi-client";
 import { inngest } from "@/inngest/client";
@@ -92,6 +92,18 @@ export const claimPayment = async (reservationId: string) => {
         type: "CLAIM",
       },
     });
+
+    // send increase platform pot balance
+    await inngest.send([
+      {
+        name: "pots/value.change",
+        data: {
+          name: potsConfig.platform,
+          increment: safeParse(revenue),
+        },
+        user: { uuid: session.uuid },
+      },
+    ]);
 
     // send finish tx event
     await inngest.send({

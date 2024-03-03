@@ -2,7 +2,7 @@
 
 import prisma from "@/lib/prisma";
 import { Prisma } from "@prisma/client";
-import { eachDayOfInterval } from "date-fns";
+
 import { getSession } from "./session";
 
 interface IParams {

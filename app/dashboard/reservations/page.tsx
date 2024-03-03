@@ -2,6 +2,7 @@ import React from "react";
 
 import { getSession } from "@/actions/session";
 import { getReservations } from "@/actions/reservations";
+import { EmptyMessage } from "@/components/shared/empty-message";
 
 import { ReservationsDropdown } from "./_components/reservations-dropdown";
 import ReservationsAction from "./_components/reservations-action";
@@ -23,6 +24,13 @@ const DashboardReservationsPage = async () => {
 
         {/* <ReservationsAction /> */}
       </div>
+
+      {!reservations.length && (
+        <EmptyMessage
+          description="You have no reservations."
+          title="Heads up!"
+        />
+      )}
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-5 lg:grid-cols-3 lg:gap-6">
         {reservations.map((reservation) => (
           <ReservationCard key={reservation.id} data={reservation} />

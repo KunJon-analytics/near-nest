@@ -2,6 +2,7 @@ import React from "react";
 
 import { getSession } from "@/actions/session";
 import prisma from "@/lib/prisma";
+import { EmptyMessage } from "@/components/shared/empty-message";
 
 import { HostPropertiesDropdown } from "./_components/host-properties-dropdown";
 import PropertiesListCard from "./_components/properties-list-card";
@@ -26,6 +27,9 @@ const HostPropertiesPage = async () => {
 
         {/* <HostPropertiesAction /> */}
       </div>
+      {!properties.length && (
+        <EmptyMessage description="You have no properties." title="Heads up!" />
+      )}
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-5 lg:grid-cols-3 lg:gap-6 xl:grid-cols-4">
         {properties.map((property) => (
           <PropertiesListCard key={property.id} property={property} />

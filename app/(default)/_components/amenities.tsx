@@ -3,6 +3,7 @@ import { Suspense } from "react";
 
 import { PropertyFilterType } from "@/types";
 import Container from "@/components/shared/container";
+import { getSession } from "@/actions/session";
 
 import AmenityBox from "./amenity-box";
 
@@ -45,7 +46,8 @@ export const amenities: PropertyFilterType[] = [
   },
 ];
 
-const Amenities = () => {
+const Amenities = async () => {
+  const session = await getSession();
   return (
     <Container>
       <div
@@ -58,6 +60,9 @@ const Amenities = () => {
           overflow-x-auto
         "
       >
+        {session.isLoggedIn && (
+          <AmenityBox label={"useLocation"} name={"Location"} />
+        )}
         {amenities.map((item) => (
           <Suspense key={item.name}>
             <AmenityBox key={item.label} label={item.label} name={item.name} />

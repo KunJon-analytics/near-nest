@@ -1,10 +1,13 @@
+import { orderByDistance } from "geolib";
+
 import Container from "@/components/shared/container";
 import { PropertiesParams } from "@/types";
 import { getProperties } from "@/actions/properties";
+import { getSession } from "@/actions/session";
+import PropertyCard from "@/components/shared/property-card";
 
 import Amenities from "./_components/amenities";
 import EmptyState from "./_components/empty-state";
-import PropertyCard from "@/components/shared/property-card";
 
 interface HomeProps {
   searchParams: PropertiesParams;
@@ -12,6 +15,17 @@ interface HomeProps {
 
 export default async function Home({ searchParams }: HomeProps) {
   const properties = await getProperties(searchParams);
+  const session = await getSession();
+  const useLocation = !!searchParams.useLocation && session.isLoggedIn;
+  const data = useLocation
+    ? orderByDistance(
+        {
+          latitude: Number(session.latitude),
+          longitude: Number(session.longitude),
+        },
+        properties
+      )
+    : properties;
 
   return (
     <div className="">

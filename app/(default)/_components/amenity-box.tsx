@@ -3,7 +3,7 @@
 import qs from "query-string";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useCallback, useMemo } from "react";
-import { ShieldQuestion } from "lucide-react";
+import { LocateFixed } from "lucide-react";
 
 import { amenities } from "./amenities";
 
@@ -19,7 +19,7 @@ const AmenityBox: React.FC<AmenityBoxProps> = ({ label, name }) => {
 
   const Icon = useMemo(() => {
     const activeAmenity = amenities.find((amenity) => amenity.label === label);
-    return activeAmenity?.icon || ShieldQuestion;
+    return activeAmenity?.icon || LocateFixed;
   }, [label]);
 
   const handleClick = useCallback(() => {

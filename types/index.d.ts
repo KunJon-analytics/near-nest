@@ -121,12 +121,13 @@ export type PropertyFilterLabel =
   | "hasAirCon"
   | "hasHeating"
   | "hasInternet"
-  | "hasPool";
+  | "hasPool"
+  | "useLocation";
 
 export type PropertiesParams = Record<PropertyFilterLabel, string | null>;
 
 export type PropertiesSearchQuery = Record<
-  PropertyFilterLabel,
+  Exclude<PropertyFilterLabel, "useLocation">,
   boolean | undefined
 >;
 

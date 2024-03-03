@@ -1,4 +1,5 @@
 import { AirVent, ChefHat, Heater, Tv, Waves, Wifi } from "lucide-react";
+import { Suspense } from "react";
 
 import { PropertyFilterType } from "@/types";
 import Container from "@/components/shared/container";
@@ -58,7 +59,9 @@ const Amenities = () => {
         "
       >
         {amenities.map((item) => (
-          <AmenityBox key={item.label} label={item.label} name={item.name} />
+          <Suspense key={item.name}>
+            <AmenityBox key={item.label} label={item.label} name={item.name} />
+          </Suspense>
         ))}
       </div>
     </Container>

@@ -1,5 +1,5 @@
 import Image from "next/image";
-import React from "react";
+import React, { Suspense } from "react";
 
 import SignInForm from "../sign-in-form";
 
@@ -30,7 +30,9 @@ const Signin = () => {
             Securely access your Koyiana account using your Pi Wallet
             credentials.
           </p>
-          <SignInForm />
+          <Suspense>
+            <SignInForm />
+          </Suspense>
         </div>
       </div>
     </main>

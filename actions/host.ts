@@ -70,7 +70,8 @@ export const claimPayment = async (reservationId: string) => {
       data: { status: "COMPLETED" },
     });
 
-    const claimAmount = safeParse((reservation.totalPrice * 100) / platformFee);
+    const revenue = safeParse((reservation.totalPrice * platformFee) / 100);
+    const claimAmount = safeParse(reservation.totalPrice - revenue);
 
     // create pipayment
     const paymentData = {
@@ -81,6 +82,16 @@ export const claimPayment = async (reservationId: string) => {
     };
 
     const paymentId = await pi.createPayment(paymentData);
+
+    // create near next payment
+    await prisma.payment.create({
+      data: {
+        paymentId,
+        amount: reservation.totalPrice,
+        purposeId: reservationId,
+        type: "CLAIM",
+      },
+    });
 
     // send finish tx event
     await inngest.send({

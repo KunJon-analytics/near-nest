@@ -5,7 +5,7 @@ import prisma from "@/lib/prisma";
 
 // Some function we'll call
 export const cancelExpiredReservations = inngest.createFunction(
-  { id: "clear-incomplete-routine" },
+  { id: "cancel-expired-reservations" },
   { cron: "0 0 * * *" },
   async ({ step }) => {
     // get pending reservations with checkIn dates of yesterday

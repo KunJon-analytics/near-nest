@@ -51,10 +51,7 @@ const PropertyCard: React.FC<PropertyCardProps> = ({ data }) => {
             <PropertyFacilities property={data} />
           </div>
         </div>
-        <div className="font-semibold text-lg">
-          {/* {location?.region}, {location?.label} */}
-          Lagos, Nigeria
-        </div>
+        <div className="font-semibold text-lg">{data.title}</div>
         <div className="font-light flex">
           <div className="flex">
             <Users /> <span className="ml-1">{data.maxOccupancy}</span>

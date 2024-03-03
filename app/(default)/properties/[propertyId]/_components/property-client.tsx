@@ -30,12 +30,14 @@ interface PropertyClientProps {
   reservations?: ReservationReturnType[];
   property: Omit<PropertyReturnType, "reservations">;
   isLoggedIn: boolean;
+  distance: number;
 }
 
 const PropertyClient: React.FC<PropertyClientProps> = ({
   property,
   reservations = [],
   isLoggedIn,
+  distance,
 }) => {
   const router = useRouter();
   const pathname = usePathname();
@@ -139,7 +141,11 @@ const PropertyClient: React.FC<PropertyClientProps> = ({
         "
       >
         <div className="flex flex-col gap-6">
-          <PropertyHead property={property} />
+          <PropertyHead
+            property={property}
+            distance={distance}
+            isLoggedIn={isLoggedIn}
+          />
           <div
             className="
               grid 

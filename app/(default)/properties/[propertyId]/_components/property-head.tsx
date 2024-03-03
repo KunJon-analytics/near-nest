@@ -1,24 +1,30 @@
 "use client";
 
-import Image from "next/image";
-
 import { PropertyReturnType } from "@/types";
-import { getByValue } from "@/lib/utils";
+
 import Heading from "@/components/shared/heading";
 import PropertyImageSlider from "./property-image-slider";
 
 interface PropertyHeadProps {
   property: Omit<PropertyReturnType, "reservations">;
+  distance: number;
+  isLoggedIn: boolean;
 }
 
-const PropertyHead: React.FC<PropertyHeadProps> = ({ property }) => {
-  const location = getByValue(property.latitude, property.longitude);
-
+const PropertyHead: React.FC<PropertyHeadProps> = ({
+  property,
+  distance,
+  isLoggedIn,
+}) => {
   return (
     <>
       <Heading
         title={property.title}
-        subtitle={`${location?.region}, ${location?.label}`}
+        subtitle={
+          isLoggedIn
+            ? `You are ${distance}m away from this property`
+            : "Log in to find how far away you are from this property"
+        }
       />
       <div
         className="

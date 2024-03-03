@@ -37,8 +37,6 @@ export default async function Home({ searchParams }: HomeProps) {
         .sort((a, b) => a.distance - b.distance)
     : properties;
 
-  console.log({ data });
-
   return (
     <div className="">
       <Amenities />

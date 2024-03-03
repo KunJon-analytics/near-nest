@@ -18,7 +18,7 @@ const tabElements: TabElement[] = [
   { icon: Building, name: "Property Type", title: "type" },
   { icon: Laugh, name: "Facilities", title: "facilities" },
   { icon: Images, name: "Media", title: "media" },
-  { icon: Send, name: "List", title: "list" },
+  { icon: Send, name: "Status", title: "status" },
 ];
 
 const CreateTabs = ({ stage }: CreateTabsProps) => {
